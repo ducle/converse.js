@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.7 (Unreleased)
+- Add support for XEP-0048, chat room bookmarks [jcbrand]
+
 ## 1.0.6 (2016-08-12)
 - #632 Offline and Logout states do not properly update once users start
   chatting. [chrisuehlinger, jcband]
