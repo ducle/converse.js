@@ -292,7 +292,7 @@
                         // are mentioned.
                         extra_classes += ' mentioned';
                     }
-                    return $(template(
+                    var msg_content =  $(template(
                             _.extend(this.getExtraMessageTemplateAttributes(attrs), {
                                 'msgid': attrs.msgid,
                                 'sender': attrs.sender,
@@ -302,9 +302,13 @@
                                 'message': '',
                                 'extra_classes': extra_classes
                             })
-                        )).children('.chat-msg-content').first().text(text)
-                            .addHyperlinks()
-                            .addEmoticons(converse.visible_toolbar_buttons.emoticons).parent();
+                        )).children('.chat-msg-content').first();
+                    if(text.indexOf('class="contract_changed') > 0) {
+                      $(msg_content).html(text);
+                    }else{
+                      $(msg_content).text(text).addHyperlinks();
+                    }
+                    return $(msg_content).addEmoticons(converse.visible_toolbar_buttons.emoticons).parent();
                 },
 
                 showHelpMessages: function (msgs, type, spinner) {
