@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>E423DD50-EAC3-4E9E-AFBE-56A9B94E3FC0</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="homepage-v2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="shared-rooms-detail-page-chat" transform="translate(-1143.000000, -740.000000)">
+            <g id="chat" transform="translate(932.000000, 385.000000)">
+                <g id="Reply" transform="translate(1.000000, 341.000000)">
+                    <g id="Smiley" transform="translate(208.351351, 13.000000)">
+                        <path d="M1.72297297,6.84210526 C1.72297297,3.81907295 4.17022767,1.36842105 7.20418091,1.36842105 L7.26879207,1.36842105 C10.2959796,1.36842105 12.75,3.82522421 12.75,6.84210526 C12.75,9.86513758 10.3027453,12.3157895 7.26879207,12.3157895 L7.20418091,12.3157895 C4.17699335,12.3157895 1.72297297,9.85898631 1.72297297,6.84210526 Z M2.41216216,6.84210526 C2.41216216,4.19695199 4.55351002,2.05263158 7.2082191,2.05263158 L7.26475387,2.05263158 C9.91354298,2.05263158 12.0608108,4.20233434 12.0608108,6.84210526 C12.0608108,9.48725854 9.91946295,11.6315789 7.26475387,11.6315789 L7.2082191,11.6315789 C4.55943,11.6315789 2.41216216,9.48187618 2.41216216,6.84210526 Z" id="Head" fill="#BDC8D1"></path>
+                        <path d="M4.79201896,8.00073795 C4.79201896,8.00073795 5.90102115,9.33883351 7.23732719,9.3388335 C8.57363323,9.3388335 9.71617546,8.03960251 9.71617546,8.03960251" id="Mouth" stroke="#BDC8D1" stroke-linecap="round"></path>
+                        <rect id="Right-eye" fill="#BDC8D1" x="8.27027027" y="5.13157895" width="1.03378378" height="1.02631579" rx="0.513157895"></rect>
+                        <rect id="Left-eye" fill="#BDC8D1" x="5.16891892" y="5.13157895" width="1.03378378" height="1.02631579" rx="0.513157895"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
