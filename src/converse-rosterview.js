@@ -234,7 +234,8 @@
                     converse.roster.on("remove", this.update, this);
                     this.model.on("add", this.onGroupAdd, this);
                     this.model.on("reset", this.reset, this);
-                    this.$roster = $('<dl class="roster-contacts" style="display: none;"></dl>');
+                    //this.$roster = $('<dl class="roster-contacts" style="display: none;"></dl>');
+                    this.$roster = $('#mySidenav.controlbox ul.contacts')
                     // Create a model on which we can store filter properties
                     var model = new converse.RosterFilter();
                     model.id = b64_sha1('converse.rosterfilter'+converse.bare_jid);
@@ -363,7 +364,9 @@
                 reset: function () {
                     converse.roster.reset();
                     this.removeAll();
-                    this.$roster = $('<dl class="roster-contacts" style="display: none;"></dl>');
+                    //this.$roster = $('<dl class="roster-contacts" style="display: none;"></dl>');
+                    $('#mySidenav.controlbox ul.contacts').html('')
+                    this.$roster = $('#mySidenav.controlbox ul.contacts')
                     this.render().update();
                     return this;
                 },
@@ -536,7 +539,7 @@
 
 
             converse.RosterContactView = Backbone.View.extend({
-                tagName: 'dd',
+                tagName: 'li',
 
                 events: {
                     "click .accept-xmpp-request": "acceptRequest",
@@ -618,6 +621,7 @@
                                 'allow_contact_removal': converse.allow_contact_removal
                             })
                         ));
+
                     }
                     return this;
                 },
@@ -704,7 +708,34 @@
                         this.model.unauthorize().destroy();
                     }
                     return this;
+                },
+
+                renderAvatar: function () {
+                    if (!this.model.get('image')) {
+                        return;
+                    }
+                    var img_src = 'data:'+this.model.get('image_type')+';base64,'+this.model.get('image'),
+                        canvas = $('canvas.avatar').get(0); //$('<canvas height="32px" width="32px" class="avatar"></canvas>').get(0);
+
+                    if (!(canvas.getContext && canvas.getContext('2d'))) {
+                        return this;
+                    }
+                    var ctx = canvas.getContext('2d');
+                    var img = new Image();   // Create new Image object
+                    img.onload = function () {
+                        var ratio = img.width/img.height;
+                        if (ratio < 1) {
+                            ctx.drawImage(img, 0,0, 32, 32*(1/ratio));
+                        } else {
+                            ctx.drawImage(img, 0,0, 32, 32*ratio);
+                        }
+
+                    };
+                    img.src = img_src;
+
+                    return this;
                 }
+
             });
 
 
@@ -731,7 +762,9 @@
                 },
 
                 render: function () {
+
                     this.$el.attr('data-group', this.model.get('name'));
+                    /*
                     this.$el.html(
                         $(converse.templates.group_header({
                             label_group: this.model.get('name'),
@@ -739,13 +772,16 @@
                             toggle_state: this.model.get('state')
                         }))
                     );
+                    */
                     return this;
                 },
 
                 addContact: function (contact) {
                     var view = new converse.RosterContactView({model: contact});
+
                     this.add(contact.get('id'), view);
                     view = this.positionContact(contact).render();
+
                     if (view.mayBeShown()) {
                         if (this.model.get('state') === converse.CLOSED) {
                             if (view.$el[0].style.display !== "none") { view.$el.hide(); }

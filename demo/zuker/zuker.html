@@ -107,9 +107,7 @@
 <script src="./zuker_files/users.self-19188fdbef6911c0b110db2caa81fce13fa2a6be3fb9bf1f26bfe4e9b8580188.js" data-turbolinks-track="true"></script>
 <script src="./zuker_files/votes.self-522dee58d04a31012be6ac68a319927737bef68a27a0603d018eb774eceec840.js" data-turbolinks-track="true"></script>
 <script src="./zuker_files/application.self-3087523c06c337a2842c53bf750f9c916f670a97a232653ffc7b47151e05f827.js" data-turbolinks-track="true"></script>
-<script src="./zuker_files/converse.self-b41656897e58a97bd4c4a56ffd304a28db117e1426157abe81c828a0863c6c1c.js" data-turbolinks-track="true"></script>
-<script src="./zuker_files/custom_maps.self-48d6ecf55dfdb9bb96cbddef42e8216b7cb03c187081546411b24b9ab2f8e193.js" data-turbolinks-track="true"></script>
-<script src="./zuker_files/search_map.self-b1c9299062694a927cb161bd3fbefabf2cbb137533f417456068a2483de62ebb.js" data-turbolinks-track="true"></script>
+
 <script src="./zuker_files/carousel.self-6f3b9002af3ab4d871a03a44d2e174370720ab31f19a4ee543c1904c32e2befa.js" data-turbolinks-track="true"></script>
 <script src="./zuker_files/chips.self-9b19ca899ba360746581059852bf2a40b3338402eef9df9a7806efd8578056dd.js" data-turbolinks-track="true"></script>
 <script src="./zuker_files/init.self-dfde1654138bd2744cfdecf9fd6b9ca488f600dcc61e6a40fa8c1400a3fbca0d.js" data-turbolinks-track="true"></script>
@@ -125,6 +123,11 @@
 <script src="./zuker_files/pikaday.self-6df2cc451ed347fcc219e23cd2286bf1f40a91f12249e5f96784bcab4701794a.js" data-turbolinks-track="true"></script>
 <script src="./zuker_files/wNumb.self-fdaa25c064853e6077d045b764d6811b69edda5cb4c27d53a01d4d1df5ea7243.js" data-turbolinks-track="true"></script>
 <script src="./zuker_files/application.self-8aed7655462cf0eeb8dc134dd7233e96e063381c3870a112aa45d560d33479ba.js" data-turbolinks-track="true"></script>
+
+<script src="../../config.js"></script> <!-- Base require.js configuration -->
+<script src="../../components/requirejs/require.js"></script>
+<script src="config.js"></script> <!-- Just set the baseUrl since we're in a subfolder -->
+<script src="../../converse.js"></script>
     <meta name="csrf-param" content="authenticity_token">
 <meta name="csrf-token" content="rMRPqbgiu070UGSPX1QQOdljW2GnUKahbLbUCjSFq4G5y1gCtg9V0T9xGQtV+Er4meRXLvJY/E/Orit51E/9nw==">
     <meta property="fb:app_id" content="449170755275605">
@@ -147,14 +150,7 @@ window.gon={};
 .fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style></head>
   <body class="welcome index zh-TW">
 
-    <div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./zuker_files/P5DLcu0KGJB.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./zuker_files/P5DLcu0KGJB(1).html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div>
-    <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.5&appId=449170755275605";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
+
 
     <nav class="fixed-navbar">
   <div class="nav-wrapper container">
@@ -242,13 +238,13 @@ window.gon={};
 
 
     <!-- side message bar -->
-    <div class="sidenav" id="mySidenav">
+    <div class="sidenav controlbox" id="mySidenav">
       <a class="closebtn" href="#">×</a>
       <div class="content">
-        <ul>
+        <ul class='contacts'>
+          <!--
           <li>
             <a class="open-chat" href="#">
-              <!-- %img{:src => "img/bitmap.png"}/ -->
               <img src="./zuker_files/bitmap-eb3e7be50503166b3b2ace6358229eb9137e663f22f8d235ccd581d50aeab647.png" alt="Bitmap eb3e7be50503166b3b2ace6358229eb9137e663f22f8d235ccd581d50aeab647">
             </a>
           </li>
@@ -257,6 +253,7 @@ window.gon={};
               <img src="./zuker_files/profile-picture-690c14470bb488c836941b58e48ec8c2ffa654f39cfe6ec43b529b9c9ddc43f4.png" alt="Profile picture 690c14470bb488c836941b58e48ec8c2ffa654f39cfe6ec43b529b9c9ddc43f4">
             </a>
           </li>
+        -->
         </ul>
       </div>
     </div>
@@ -673,7 +670,7 @@ window.gon={};
           <div class="col-md-12">
             <p class="property-text about-text">3 minutes to Technology Building MRT Station, there are 3 supermarkets within 5 minutes walk. Located right across NTUE, easy transport to NCCU, NTU, NTNU and NTUST. All within 30 minutes. A youbike station just across the road making life even more easy.</p>
             <div class="map-conatainer">
-              <iframe allowfullscreen="" frameborder="0" height="236" src="./zuker_files/embed.html" style="border:0" width="100%"></iframe>
+
             </div>
           </div>
         </div>
@@ -874,20 +871,7 @@ window.gon={};
   </div>
 </footer>
 
-    <script src="./zuker_files/materialize.min.js"></script>
 
-
-
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', '', 'auto');
-      ga('send', 'pageview');
-
-    </script>
     <a class="btn btn-default add-contact" data-username="0989233846" data-nickname="Bao0" href="javascript:void(0);">contact landlord</a>
 
 
@@ -904,9 +888,10 @@ window.gon={};
             show_controlbox_by_default: true,
             allow_logout: false,
             allow_registration: false,
+            allow_contact_requests: false,
             auto_login: true,
             authentication: 'login',
-            jid: '989233846@localhost',
+            jid: '0989233846@localhost',
             password: '111111'
         });
     });
