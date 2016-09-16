@@ -208,7 +208,7 @@
                 },
 
                 initialize: function () {
-                    this.$el.appendTo($('.controlbox#mySidenav'));
+                    this.$el.insertAfter(converse.controlboxtoggle.$el);
                     this.model.on('change:connected', this.onConnected, this);
                     this.model.on('destroy', this.hide, this);
                     this.model.on('hide', this.hide, this);

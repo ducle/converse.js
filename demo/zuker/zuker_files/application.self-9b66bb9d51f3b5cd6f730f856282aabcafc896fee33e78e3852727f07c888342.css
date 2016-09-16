@@ -17,6 +17,10 @@
 /* plugins */
 /* Slider */
 @import "https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700";
+.selected-person {
+    border: solid 3px #d35400;
+    border-radius: 50%;
+}
 /* line 2, /opt/workspace/src-zuker-chat/Zuker-Beta/app/assets/stylesheets/plugins/slick/slick.scss */
 .slick-slider {
   position: relative;
