@@ -4,7 +4,7 @@
     <title>Zuker</title>
     <link rel="shortcut icon" type="image/x-icon" href="http://localhost:3000/assets/icon-08aa910515e465b231f2635a1d89f475384a25c938a169c9f55bd00d6fabf72e.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-    <link rel="stylesheet" media="all" href="./zuker_files/converse.self-a8f73c45cc5e2b7c2b62f4ae28cd9cf6c4984f08c2013d42eb16a026f4566792.css" data-turbolinks-track="true">
+
 <link rel="stylesheet" media="all" href="./zuker_files/application.self-9b66bb9d51f3b5cd6f730f856282aabcafc896fee33e78e3852727f07c888342.css" data-turbolinks-track="true">
     <script async="" src="./zuker_files/analytics.js"></script><script id="facebook-jssdk" src="./zuker_files/sdk.js"></script><script src="./zuker_files/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js" data-turbolinks-track="true"></script>
 <script src="./zuker_files/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js" data-turbolinks-track="true"></script>
@@ -128,6 +128,8 @@
 <script src="../../components/requirejs/require.js"></script>
 <script src="config.js"></script> <!-- Just set the baseUrl since we're in a subfolder -->
 <script src="../../converse.js"></script>
+<link rel="stylesheet" href="../../css/converse.css">
+
     <meta name="csrf-param" content="authenticity_token">
 <meta name="csrf-token" content="rMRPqbgiu070UGSPX1QQOdljW2GnUKahbLbUCjSFq4G5y1gCtg9V0T9xGQtV+Er4meRXLvJY/E/Orit51E/9nw==">
     <meta property="fb:app_id" content="449170755275605">
@@ -889,6 +891,7 @@ window.gon={};
             allow_logout: false,
             allow_registration: false,
             allow_contact_requests: false,
+            allow_otr: false,
             auto_login: true,
             authentication: 'login',
             jid: '0989233846@localhost',
