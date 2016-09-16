@@ -5,7 +5,7 @@
  * Copyright (c) 2012-2014, JC Brand <jc@opkode.com>
  * Licensed under the Mozilla Public License
  */
-/* 
+/*
     Color scheme helpers:
     https://coolors.co/app/264653-2a9d8f-e9c46a-f4a261-e76f51
     http://paletton.com/#uid=53f0u0knsvIdILAj5Cftgu3uBmZ
@@ -1246,7 +1246,7 @@
     border-radius: 50%;
     float: left; }
   #conversejs .chat-head.chat-head-chatbox {
-    background-color: #F4A261; }
+    background-color: #1e5471; }
   #conversejs .chat-head .user-custom-message {
     clear: left;
     color: white;

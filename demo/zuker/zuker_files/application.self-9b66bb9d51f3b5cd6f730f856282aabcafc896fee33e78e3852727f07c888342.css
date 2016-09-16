@@ -17,6 +17,12 @@
 /* plugins */
 /* Slider */
 @import "https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700";
+#conversejs {
+  margin-right: 60px;
+}
+#minimized-chats, #controlbox {
+  display: none !important;
+}
 .selected-person {
     border: solid 3px #d35400;
     border-radius: 50%;
