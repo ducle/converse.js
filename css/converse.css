@@ -1278,7 +1278,7 @@
   float: right;
   height: 35px;
   margin: 0 0.5em;
-  width: 200px; }
+  width: 270px; }
   @media screen and (max-height: 450px) {
     #conversejs .chatbox {
       margin: 0;
@@ -1293,7 +1293,7 @@
     height: 450px;
     min-height: 225px;
     min-width: 200px;
-    width: 200px;
+    width: 270px;
     z-index: 1; }
     @media screen and (max-height: 450px) {
       #conversejs .chatbox .box-flyout {
