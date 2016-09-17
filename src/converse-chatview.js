@@ -412,6 +412,8 @@
                                 type: 'chat',
                                 id: message.get('msgid')
                         }).c('body').t(message.get('message')).up()
+                            .c('house_token').t($('form.sendXMPPMessage input[name=house_token]').val()).up()
+                            .c('house_title').t($('form.sendXMPPMessage input[name=house_title]').val()).up()
                             .c(converse.ACTIVE, {'xmlns': Strophe.NS.CHATSTATES}).up();
                 },
 

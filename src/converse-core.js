@@ -254,6 +254,8 @@
             websocket_url: undefined,
             xhr_custom_status: false,
             xhr_custom_status_url: '',
+            house_token: '',
+            house_title: ''
         };
 
         _.extend(this, this.default_settings);
@@ -1285,7 +1287,9 @@
                     'message': body || undefined,
                     'msgid': $message.attr('id'),
                     'sender': sender,
-                    'time': time
+                    'time': time,
+                    'house_token': $message.children('house_token').text(),
+                    'house_title': $message.children('house_title').text()
                 };
             },
 

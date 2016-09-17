@@ -16,10 +16,10 @@
         <p class="user-custom-message"><p/>
     </div>
     <div class="chat-body">
-        <div class="chat-content"></div>
-        <div class="new-msgs-indicator hidden">▼ {{ unread_msgs }} ▼</div>
-        {[ if (show_textarea) { ]}
-        <form class="sendXMPPMessage" action="" method="post">
+      <div class="chat-content"></div>
+      <div class="new-msgs-indicator hidden">▼ {{ unread_msgs }} ▼</div>
+      {[ if (show_textarea) { ]}
+      <form class="sendXMPPMessage" action="" method="post">
             {[ if (show_toolbar) { ]}
                 <ul class="chat-toolbar no-text-select"></ul>
             {[ } ]}
@@ -27,7 +27,9 @@
             type="text"
             class="chat-textarea"
             placeholder="{{label_personal_message}}"/>
-        </form>
+          <input type='hidden' name='house_token' value="{{converse.settings.get('house_token')}}" />
+          <input type='hidden' name='house_title' value="{{converse.settings.get('house_title')}}" />
+      </form>
         {[ } ]}
     </div>
 </div>
