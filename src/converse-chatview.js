@@ -84,6 +84,14 @@
                     this.model.on('showHelpMessages', this.showHelpMessages, this);
                     this.model.on('sendMessage', this.sendMessage, this);
                     this.render().fetchMessages().insertIntoDOM().afterShown();
+                    _.delay(_.bind(function() {
+                        var last_msgid = this.$el.find('.chat-message:last').data('msgid');
+                        var last_msg = _.find(this.model.messages.models, function(item){
+                          return item.get('msgid') == last_msgid;
+                        });
+                        this.$el.find('.chat-title .house-title').text(last_msg.get('house_title'));
+                   }, this), 1000)
+
                     // XXX: adding the event below to the events map above doesn't work.
                     // The code that gets executed because of that looks like this:
                     //      this.$el.on('scroll', '.chat-content', this.markScrolled.bind(this));
