@@ -254,6 +254,7 @@
             websocket_url: undefined,
             xhr_custom_status: false,
             xhr_custom_status_url: '',
+            zuker_base_url: '',
             house_token: '',
             house_title: ''
         };

@@ -44,7 +44,7 @@ require.config({
         "underscore":               "node_modules/underscore/underscore",
         "utils":                    "src/utils",
         "polyfill":                 "src/polyfill",
-        
+
         // Converse
         "converse-api":             "src/converse-api",
         "converse-chatview":        "src/converse-chatview",
@@ -175,7 +175,8 @@ require.config({
         "toolbar_otr":              "src/templates/toolbar_otr",
         "trimmed_chat":             "src/templates/trimmed_chat",
         "vcard":                    "src/templates/vcard",
-        "chatbox_minimize":         "src/templates/chatbox_minimize"
+        "chatbox_minimize":         "src/templates/chatbox_minimize",
+        "house":                    "src/templates/house"
     },
 
     map: {

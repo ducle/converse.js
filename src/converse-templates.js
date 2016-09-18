@@ -58,6 +58,7 @@ define("converse-templates", [
     // if minimization/trimming features not needed (for example for mobile
     // apps).
     "tpl!chatbox_minimize",
+    "tpl!house"
 ], function () {
     return {
         action:                 arguments[0],
@@ -114,6 +115,7 @@ define("converse-templates", [
         toolbar_otr:            arguments[51],
         trimmed_chat:           arguments[52],
         vcard:                  arguments[53],
-        chatbox_minimize:       arguments[54]
+        chatbox_minimize:       arguments[54],
+        house:                  arguments[55]
     };
 });

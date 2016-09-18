@@ -69,7 +69,8 @@
                     'click .toggle-smiley ul li': 'insertEmoticon',
                     'click .toggle-clear': 'clearMessages',
                     'click .toggle-call': 'toggleCall',
-                    'click .new-msgs-indicator': 'viewUnreadMessages'
+                    'click .new-msgs-indicator': 'viewUnreadMessages',
+                    'change select.houses': 'changeHouse'
                 },
 
                 initialize: function () {
@@ -90,6 +91,8 @@
                           return item.get('msgid') == last_msgid;
                         });
                         this.$el.find('.chat-title .house-title').text(last_msg.get('house_title'));
+                        this.$el.find('form.sendXMPPMessage input[name=house_token]').val(last_msg.get('house_token'));
+                        this.$el.find('form.sendXMPPMessage input[name=house_title]').val(last_msg.get('house_title'));
                    }, this), 1000)
 
                     // XXX: adding the event below to the events map above doesn't work.
@@ -98,6 +101,7 @@
                     // Which for some reason doesn't work.
                     // So working around that fact here:
                     this.$el.find('.chat-content').on('scroll', this.markScrolled.bind(this));
+                    this.renderHouses();
                     converse.emit('chatBoxInitialized', this);
                 },
 
@@ -420,8 +424,8 @@
                                 type: 'chat',
                                 id: message.get('msgid')
                         }).c('body').t(message.get('message')).up()
-                            .c('house_token').t($('form.sendXMPPMessage input[name=house_token]').val()).up()
-                            .c('house_title').t($('form.sendXMPPMessage input[name=house_title]').val()).up()
+                            .c('house_token').t($(this.el).find('form.sendXMPPMessage input[name=house_token]').val()).up()
+                            .c('house_title').t($(this.el).find('form.sendXMPPMessage input[name=house_title]').val()).up()
                             .c(converse.ACTIVE, {'xmlns': Strophe.NS.CHATSTATES}).up();
                 },
 
@@ -693,6 +697,11 @@
                     utils.refreshWebkit();
                     return this;
                 },
+                renderHouses: function () {
+                  var housesView = new converse.HousesView();
+                  housesView.render();
+                  return this;
+                },
 
                 afterShown: function () {
                     if (converse.connection.connected) {
@@ -765,6 +774,36 @@
                         this.$content.scrollTop(this.$content[0].scrollHeight);
                         this.$el.find('.new-msgs-indicator').addClass('hidden');
                     }
+                    return this;
+                },
+                changeHouse: function (ev) {
+                    if (ev && ev.preventDefault) { ev.preventDefault(); }
+                    var chatbox1 = $(ev.target).closest('.chatbox');
+                    var house_token = $(chatbox1).find('option:selected').val();
+                    var house_title = $(chatbox1).find('option:selected').text();
+                    $(chatbox1).find('.chat-title .house-title').text(house_title);
+                    $(chatbox1).find('form.sendXMPPMessage input[name=house_token]').val(house_token);
+                    $(chatbox1).find('form.sendXMPPMessage input[name=house_title]').val(house_title);
+                    var chatbox = _.find(converse.chatboxes.models, function(obj) {
+                      return obj.get('box_id') == $(ev.target).closest('.chatbox').attr('id')
+                    })
+                    this.onMessageSubmitted($(ev.target).find('option:selected').text());
+                }
+            });
+
+            converse.HousesView = Backbone.View.extend({
+                el: 'select.houses',
+
+                render: function() {
+                    console.log('render houses ----')
+                    var div1 = this.el;
+                    $(this.el).html('');
+                    $.get(converse.zuker_base_url + "houses/list.json" + "?jid=" + converse.bare_jid, function(data) {
+                      $(data).each(function (idx, obj) {
+                        $(div1).append(converse.templates.house(obj));
+                      })
+                    });
+
                     return this;
                 }
             });

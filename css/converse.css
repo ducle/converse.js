@@ -2160,3 +2160,9 @@
     color: white;
     height: 3rem;
   }
+  #conversejs {
+    margin-right: 60px;
+  }
+  #conversejs #minimized-chats, #controlbox {
+    display: none !important;
+  }
