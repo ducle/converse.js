@@ -2149,4 +2149,14 @@
     right: 116px;
     bottom: 10px; }
 
-/*# sourceMappingURL=converse.css.map */
+  #conversejs .landlord-container .edit-contract-container {
+    background-color: #f39c12;
+    font-size: 12px;
+  }
+
+  #conversejs .landlord-container .edit-contract-container a{
+    width: 100%;
+    padding: 15px 5px;
+    color: white;
+    height: 3rem;
+  }

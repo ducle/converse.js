@@ -16,7 +16,23 @@
         </div>
         <p class="user-custom-message"><p/>
     </div>
-    <div class="chat-body">
+
+
+    <div class="landlord-container" style='display:flex'>
+        <div class="landlord-select-dropdown" style='width:60%;'>
+          <select style="background: #0d95ce; color: white; display: block;">
+                          <option>AL</option>
+                          <option>CA</option>
+                          <option>IL</option>
+                      </select>
+        </div>
+        <div class="edit-contract-container" style='width:40%;'>
+          <a class="form-control btn btn-default" href="javascript:void(0)" type="button">
+            Edit contract
+          </a>
+        </div>
+    </div>
+    <div class="chat-body clearfix">
       <div class="chat-content"></div>
       <div class="new-msgs-indicator hidden">▼ {{ unread_msgs }} ▼</div>
       {[ if (show_textarea) { ]}
