@@ -93,6 +93,9 @@
                         this.$el.find('.chat-title .house-title').text(last_msg.get('house_title'));
                         this.$el.find('form.sendXMPPMessage input[name=house_token]').val(last_msg.get('house_token'));
                         this.$el.find('form.sendXMPPMessage input[name=house_title]').val(last_msg.get('house_title'));
+                        converse.house_token = last_msg.get('house_token')
+                        converse.house_title = last_msg.get('house_title')
+                        this.renderHouses();
                    }, this), 1000)
 
                     // XXX: adding the event below to the events map above doesn't work.
@@ -101,7 +104,6 @@
                     // Which for some reason doesn't work.
                     // So working around that fact here:
                     this.$el.find('.chat-content').on('scroll', this.markScrolled.bind(this));
-                    this.renderHouses();
                     converse.emit('chatBoxInitialized', this);
                 },
 
@@ -315,7 +317,7 @@
                                 'extra_classes': extra_classes
                             })
                         )).children('.chat-msg-content').first();
-                    if(text.indexOf('class="contract_changed') > 0) {
+                    if(text.indexOf('class="contract_changed') > 0 || text.indexOf('class="house_changed') > 0) {
                       $(msg_content).html(text);
                     }else{
                       $(msg_content).text(text).addHyperlinks();
@@ -376,6 +378,13 @@
                     this.showMessage(_.clone(message.attributes));
                     if (message.get('sender') !== 'me') {
                         this.updateNewMessageIndicators(message);
+                        if(message.get('message').indexOf('class="house_changed') > 0) {
+                          this.$el.find('.chat-title .house-title').text(message.get('house_title'));
+                          this.$el.find('form.sendXMPPMessage input[name=house_token]').val(message.get('house_token'));
+                          this.$el.find('form.sendXMPPMessage input[name=house_title]').val(message.get('house_title'));
+                          converse.house_token = message.get('house_token')
+                          converse.house_title = message.get('house_title')
+                        }
                     } else {
                         // We remove the "scrolled" flag so that the chat area
                         // gets scrolled down. We always want to scroll down
@@ -778,16 +787,12 @@
                 },
                 changeHouse: function (ev) {
                     if (ev && ev.preventDefault) { ev.preventDefault(); }
-                    var chatbox1 = $(ev.target).closest('.chatbox');
-                    var house_token = $(chatbox1).find('option:selected').val();
-                    var house_title = $(chatbox1).find('option:selected').text();
-                    $(chatbox1).find('.chat-title .house-title').text(house_title);
-                    $(chatbox1).find('form.sendXMPPMessage input[name=house_token]').val(house_token);
-                    $(chatbox1).find('form.sendXMPPMessage input[name=house_title]').val(house_title);
-                    var chatbox = _.find(converse.chatboxes.models, function(obj) {
-                      return obj.get('box_id') == $(ev.target).closest('.chatbox').attr('id')
-                    })
-                    this.onMessageSubmitted($(ev.target).find('option:selected').text());
+                    var house_token = $(this.el).find('option:selected').val();
+                    var house_title = $(this.el).find('option:selected').text();
+                    $(this.el).find('.chat-title .house-title').text(house_title);
+                    $(this.el).find('form.sendXMPPMessage input[name=house_token]').val(house_token);
+                    $(this.el).find('form.sendXMPPMessage input[name=house_title]').val(house_title);
+                    this.onMessageSubmitted('<span class="house_changed">' + $(this.el).find('option:selected').text() + '</span>');
                 }
             });
 
@@ -798,10 +803,15 @@
                     console.log('render houses ----')
                     var div1 = this.el;
                     $(this.el).html('');
-                    $.get(converse.zuker_base_url + "houses/list.json" + "?jid=" + converse.bare_jid, function(data) {
+                    var house_token = converse.house_token != null ? converse.house_token : ''
+                    $.get(converse.zuker_base_url + "houses/list.json" + "?jid=" + converse.bare_jid + "&house_token=" + house_token, function(data) {
                       $(data).each(function (idx, obj) {
-                        $(div1).append(converse.templates.house(obj));
+                          $(div1).append(converse.templates.house(obj));
                       })
+                      if(data.length > 0) {
+                          $(div1).closest('.landlord-container').removeClass('hide');
+                          $('#conversejs .chatbox .chat-content').css('height', 'calc(100% - 130px)')
+                      }
                     });
 
                     return this;

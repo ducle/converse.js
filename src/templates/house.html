@@ -1,3 +1,7 @@
-<option value="{{token}}">
+<option
+{[ if( token == converse.settings.get('house_token')) { ]}
+selected
+{[ } ]}
+value="{{token}}">
   {{ title }}
 </option>
