@@ -2166,3 +2166,6 @@
   #conversejs #minimized-chats, #controlbox {
     display: none !important;
   }
+  #conversejs .editing-contract-msg {
+    background: #e7b859 none repeat scroll 0 0;
+  }

@@ -70,7 +70,8 @@
                     'click .toggle-clear': 'clearMessages',
                     'click .toggle-call': 'toggleCall',
                     'click .new-msgs-indicator': 'viewUnreadMessages',
-                    'change select.houses': 'changeHouse'
+                    'change select.houses': 'changeHouse',
+                    'click .edit-contract-container a': 'editContract'
                 },
 
                 initialize: function () {
@@ -317,7 +318,7 @@
                                 'extra_classes': extra_classes
                             })
                         )).children('.chat-msg-content').first();
-                    if(text.indexOf('class="contract_changed') > 0 || text.indexOf('class="house_changed') > 0) {
+                    if (text.indexOf('class="show_html') > 0) {
                       $(msg_content).html(text);
                     }else{
                       $(msg_content).text(text).addHyperlinks();
@@ -706,11 +707,6 @@
                     utils.refreshWebkit();
                     return this;
                 },
-                renderHouses: function () {
-                  var housesView = new converse.HousesView();
-                  housesView.render();
-                  return this;
-                },
 
                 afterShown: function () {
                     if (converse.connection.connected) {
@@ -785,6 +781,14 @@
                     }
                     return this;
                 },
+                renderHouses: function () {
+                  var housesView = new converse.HousesView();
+                  housesView.render();
+                  return this;
+                },
+                editContract: function () {
+                  this.onMessageSubmitted('<span class="show_html editing-contract-msg">The landlord is editing the contract.</span>');
+                },
                 changeHouse: function (ev) {
                     if (ev && ev.preventDefault) { ev.preventDefault(); }
                     var house_token = $(this.el).find('option:selected').val();
@@ -792,7 +796,7 @@
                     $(this.el).find('.chat-title .house-title').text(house_title);
                     $(this.el).find('form.sendXMPPMessage input[name=house_token]').val(house_token);
                     $(this.el).find('form.sendXMPPMessage input[name=house_title]').val(house_title);
-                    this.onMessageSubmitted('<span class="house_changed">' + $(this.el).find('option:selected').text() + '</span>');
+                    this.onMessageSubmitted('<span class="show_html house_changed">' + $(this.el).find('option:selected').text() + '</span>');
                 }
             });
 
