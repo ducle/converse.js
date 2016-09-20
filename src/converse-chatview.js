@@ -379,7 +379,7 @@
                     this.showMessage(_.clone(message.attributes));
                     if (message.get('sender') !== 'me') {
                         this.updateNewMessageIndicators(message);
-                        if(message.get('message').indexOf('class="house_changed') > 0) {
+                        if(message.get('message').indexOf('class="show_html house_changed') > 0) {
                           this.$el.find('.chat-title .house-title').text(message.get('house_title'));
                           this.$el.find('form.sendXMPPMessage input[name=house_token]').val(message.get('house_token'));
                           this.$el.find('form.sendXMPPMessage input[name=house_title]').val(message.get('house_title'));
