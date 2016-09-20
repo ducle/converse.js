@@ -495,7 +495,9 @@
                         fullname: fullname,
                         sender: 'me',
                         time: moment().format(),
-                        message: text
+                        message: text,
+                        house_token: $(this.el).find('form.sendXMPPMessage input[name=house_token]').val(),
+                        house_title: $(this.el).find('form.sendXMPPMessage input[name=house_title]').val()
                     });
                     this.sendMessage(message);
                 },
