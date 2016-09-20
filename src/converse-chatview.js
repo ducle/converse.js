@@ -794,11 +794,11 @@
                 changeHouse: function (ev) {
                     if (ev && ev.preventDefault) { ev.preventDefault(); }
                     var house_token = $(this.el).find('option:selected').val();
-                    var house_title = $(this.el).find('option:selected').text();
+                    var house_title = $(this.el).find('option:selected').attr('data-title');
                     $(this.el).find('.chat-title .house-title').text(house_title);
                     $(this.el).find('form.sendXMPPMessage input[name=house_token]').val(house_token);
                     $(this.el).find('form.sendXMPPMessage input[name=house_title]').val(house_title);
-                    this.onMessageSubmitted('<span class="show_html house_changed">' + $(this.el).find('option:selected').text() + '</span>');
+                    this.onMessageSubmitted('<span class="show_html house_changed">' + house_title + '</span>');
                 }
             });
 
