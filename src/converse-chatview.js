@@ -790,6 +790,7 @@
                 },
                 editContract: function () {
                   this.onMessageSubmitted('<span class="show_html editing-contract-msg">The landlord is editing the contract.</span>');
+                  location.href = converse.contract_url;
                 },
                 changeHouse: function (ev) {
                     if (ev && ev.preventDefault) { ev.preventDefault(); }
