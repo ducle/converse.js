@@ -668,6 +668,11 @@
 
                 openChat: function (ev) {
                     if (ev && ev.preventDefault) { ev.preventDefault(); }
+                    converse.chatboxviews.each(function (view) {
+                      if (view.model.get('id') !== 'controlbox') {
+                        view.close();
+                      }
+                    });
                     return converse.chatboxviews.showChat(this.model.attributes);
                 },
 
