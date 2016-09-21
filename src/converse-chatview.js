@@ -91,11 +91,13 @@
                         var last_msg = _.find(this.model.messages.models, function(item){
                           return item.get('msgid') == last_msgid;
                         });
-                        this.$el.find('.chat-title .house-title').text(last_msg.get('house_title'));
-                        this.$el.find('form.sendXMPPMessage input[name=house_token]').val(last_msg.get('house_token'));
-                        this.$el.find('form.sendXMPPMessage input[name=house_title]').val(last_msg.get('house_title'));
-                        converse.house_token = last_msg.get('house_token')
-                        converse.house_title = last_msg.get('house_title')
+                        if (last_msg) {
+                          // this.$el.find('.chat-title .house-title').text(last_msg.get('house_title'));
+                          this.$el.find('form.sendXMPPMessage input[name=house_token]').val(last_msg.get('house_token'));
+                          this.$el.find('form.sendXMPPMessage input[name=house_title]').val(last_msg.get('house_title'));
+                          converse.house_token = last_msg.get('house_token');
+                          converse.house_title = last_msg.get('house_title');
+                        }
                         this.renderHouses();
                    }, this), 1000)
 
@@ -818,6 +820,8 @@
                       if(data.length > 0) {
                           $(div1).closest('.landlord-container').removeClass('hide');
                           $('#conversejs .chatbox .chat-content').css('height', 'calc(100% - 130px)')
+                      } else {
+                        $(div1).closest('.chatbox').find('.chat-title .house-title').text(converse.house_title);
                       }
                     });
 
