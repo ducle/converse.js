@@ -382,7 +382,8 @@
                     if (message.get('sender') !== 'me') {
                         this.updateNewMessageIndicators(message);
                         if(message.get('message').indexOf('class="show_html house_changed') > 0) {
-                          this.$el.find('.chat-title .house-title').text(message.get('house_title'));
+                          this.$el.find('.chat-title .house-title').text(message.get('house_title'))
+                            .closest('a').attr('href', converse.zuker_base_url + "houses/" + message.get('house_token'));
                           this.$el.find('form.sendXMPPMessage input[name=house_token]').val(message.get('house_token'));
                           this.$el.find('form.sendXMPPMessage input[name=house_title]').val(message.get('house_title'));
                           converse.house_token = message.get('house_token')
@@ -798,7 +799,8 @@
                     if (ev && ev.preventDefault) { ev.preventDefault(); }
                     var house_token = $(this.el).find('option:selected').val();
                     var house_title = $(this.el).find('option:selected').attr('data-title');
-                    $(this.el).find('.chat-title .house-title').text(house_title);
+                    $(this.el).find('.chat-title .house-title').text(house_title)
+                      .closest('a').attr('href', converse.zuker_base_url + "houses/" + house_token);
                     $(this.el).find('form.sendXMPPMessage input[name=house_token]').val(house_token);
                     $(this.el).find('form.sendXMPPMessage input[name=house_title]').val(house_title);
                     this.onMessageSubmitted('<span class="show_html house_changed">' + house_title + '</span>');
@@ -821,7 +823,8 @@
                           $(div1).closest('.landlord-container').removeClass('hide');
                           $('#conversejs .chatbox .chat-content').css('height', 'calc(100% - 130px)')
                       } else {
-                        $(div1).closest('.chatbox').find('.chat-title .house-title').text(converse.house_title);
+                        $(div1).closest('.chatbox').find('.chat-title .house-title').text(converse.house_title)
+                          .closest('a').attr('href', converse.zuker_base_url + "houses/" + converse.house_token);
                       }
                     });
 
