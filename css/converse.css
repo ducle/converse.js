@@ -2148,24 +2148,3 @@
     position: absolute;
     right: 116px;
     bottom: 10px; }
-
-  #conversejs .landlord-container .edit-contract-container {
-    background-color: #f39c12;
-    font-size: 12px;
-  }
-
-  #conversejs .landlord-container .edit-contract-container a{
-    width: 100%;
-    padding: 15px 5px;
-    color: white;
-    height: 3rem;
-  }
-  #conversejs {
-    margin-right: 60px;
-  }
-  #conversejs #minimized-chats, #controlbox {
-    display: none !important;
-  }
-  #conversejs .editing-contract-msg {
-    background: #e7b859 none repeat scroll 0 0;
-  }

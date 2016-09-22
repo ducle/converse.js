@@ -128,6 +128,10 @@
                     this.renderToolbar().renderAvatar();
                     converse.emit('chatBoxOpened', this);
                     window.setTimeout(utils.refreshWebkit, 50);
+
+                    if(this.model.get('minimized')) {
+                      this.hide();
+                    }
                     return this.showStatusMessage();
                 },
 
@@ -643,6 +647,7 @@
 
                 close: function (ev) {
                     if (ev && ev.preventDefault) { ev.preventDefault(); }
+                    $('.controlbox#mySidenav').find(".open-chat[data-contact-jid='" + this.model.get('jid') + "'] img.avatar").removeClass('selected-person');
                     if (converse.connection.connected) {
                         // Immediately sending the chat state, because the
                         // model is going to be destroyed afterwards.
@@ -702,6 +707,9 @@
                 },
 
                 focus: function () {
+                    if(this.$el.is(':visible')) {
+                      $('.controlbox#mySidenav').find(".open-chat[data-contact-jid='" + this.model.get('jid') + "'] img.avatar").addClass('selected-person');
+                    }
                     this.$el.find('.chat-textarea').focus();
                     converse.emit('chatBoxFocused', this);
                     return this;

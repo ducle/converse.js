@@ -670,7 +670,8 @@
                     if (ev && ev.preventDefault) { ev.preventDefault(); }
                     converse.chatboxviews.each(function (view) {
                       if (view.model.get('id') !== 'controlbox') {
-                        view.close();
+                        $('.controlbox#mySidenav').find(".open-chat[data-contact-jid='" + view.model.get('jid') + "'] img.avatar").removeClass('selected-person');
+                        view.minimize();
                       }
                     });
                     return converse.chatboxviews.showChat(this.model.attributes);
