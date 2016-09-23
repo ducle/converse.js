@@ -473,6 +473,9 @@
                             .cnode(messageStanza.tree())
                         );
                     }
+                    if (this.model.get('chat_status') == 'offline') {
+                        $.get(converse.zuker_base_url + "chats/notify.js", { jid: this.model.get('jid') });
+                    }
                 },
 
                 onMessageSubmitted: function (text) {
