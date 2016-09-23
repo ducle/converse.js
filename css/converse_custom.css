@@ -1,8 +1,11 @@
 #conversejs .chat-head.chat-head-chatbox {
   background-color: #1e5471;
 }
+#conversejs .chatbox-btn {
+  border: 0 solid white;
+}
 #conversejs .chatbox .chat-body .chat-info.chat-date {
-  width: 100%;
+  width: 99%;
   text-align: center;
 }
 #conversejs .landlord-container .edit-contract-container {
