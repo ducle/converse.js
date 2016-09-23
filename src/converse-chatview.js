@@ -87,18 +87,7 @@
                     this.model.on('sendMessage', this.sendMessage, this);
                     this.render().fetchMessages().insertIntoDOM().afterShown();
                     _.delay(_.bind(function() {
-                        var last_msgid = this.$el.find('.chat-message:last').data('msgid');
-                        var last_msg = _.find(this.model.messages.models, function(item){
-                          return item.get('msgid') == last_msgid;
-                        });
-                        if (last_msg) {
-                          // this.$el.find('.chat-title .house-title').text(last_msg.get('house_title'));
-                          this.$el.find('form.sendXMPPMessage input[name=house_token]').val(last_msg.get('house_token'));
-                          this.$el.find('form.sendXMPPMessage input[name=house_title]').val(last_msg.get('house_title'));
-                          converse.house_token = last_msg.get('house_token');
-                          converse.house_title = last_msg.get('house_title');
-                        }
-                        this.renderHouses();
+                        this.setHouse().renderHouses();
                    }, this), 1000)
 
                     // XXX: adding the event below to the events map above doesn't work.
@@ -108,6 +97,27 @@
                     // So working around that fact here:
                     this.$el.find('.chat-content').on('scroll', this.markScrolled.bind(this));
                     converse.emit('chatBoxInitialized', this);
+                },
+
+                setHouse: function () {
+                  var house_title = '', house_token = '';
+                  if(converse.house_token != null && converse.house_token != '' && converse.house_jid == this.model.id) {
+                    house_token = converse.house_token
+                    house_title = converse.house_title
+                  } else {
+                    var last_msgid = this.$el.find('.chat-message:last').data('msgid');
+                    var last_msg = _.find(this.model.messages.models, function(item){
+                      return item.get('msgid') == last_msgid;
+                    });
+
+                    if (last_msg) {
+                      house_token = last_msg.get('house_token');
+                      house_title = last_msg.get('house_title');
+                    }
+                  }
+                  this.$el.find('form.sendXMPPMessage input[name=house_token]').val(house_token);
+                  this.$el.find('form.sendXMPPMessage input[name=house_title]').val(house_title);
+                  return this;
                 },
 
                 render: function () {
@@ -390,8 +400,6 @@
                             .closest('a').attr('href', converse.zuker_base_url + "houses/" + message.get('house_token'));
                           this.$el.find('form.sendXMPPMessage input[name=house_token]').val(message.get('house_token'));
                           this.$el.find('form.sendXMPPMessage input[name=house_title]').val(message.get('house_title'));
-                          converse.house_token = message.get('house_token')
-                          converse.house_title = message.get('house_title')
                         }
                     } else {
                         // We remove the "scrolled" flag so that the chat area
@@ -795,7 +803,11 @@
                     return this;
                 },
                 renderHouses: function () {
-                  var housesView = new converse.HousesView();
+                  var parent = this.el
+                  var housesView = new converse.HousesView({
+                    el: $(parent).find('select.houses'),
+                    '$parent': parent,
+                  });
                   housesView.render();
                   return this;
                 },
@@ -816,13 +828,18 @@
             });
 
             converse.HousesView = Backbone.View.extend({
-                el: 'select.houses',
+                // el: 'select.houses',
+                initialize: function(cfg) {
+                  this.$parent = cfg.$parent;
+                },
 
                 render: function() {
                     console.log('render houses ----')
                     var div1 = this.el;
                     $(this.el).html('');
-                    var house_token = converse.house_token != null ? converse.house_token : ''
+                    var chatbox1 = $(div1).closest('.chatbox');
+                    var house_token = $(chatbox1).find('form.sendXMPPMessage input[name=house_token]').val();
+                    var house_title = $(chatbox1).find('form.sendXMPPMessage input[name=house_title]').val();
                     $.get(converse.zuker_base_url + "houses/list.json" + "?jid=" + converse.bare_jid + "&house_token=" + house_token, function(data) {
                       $(data).each(function (idx, obj) {
                           $(div1).append(converse.templates.house(obj));
@@ -831,8 +848,8 @@
                           $(div1).closest('.landlord-container').removeClass('hide');
                           $('#conversejs .chatbox .chat-content').css('height', 'calc(100% - 130px)')
                       } else {
-                        $(div1).closest('.chatbox').find('.chat-title .house-title').text(converse.house_title)
-                          .closest('a').attr('href', converse.zuker_base_url + "houses/" + converse.house_token);
+                        $(chatbox1).find('.chat-title .house-title').text(house_title)
+                          .closest('a').attr('href', converse.zuker_base_url + "houses/" + house_token);
                       }
                     });
 
