@@ -473,6 +473,19 @@
                             .cnode(messageStanza.tree())
                         );
                     }
+
+                    var $message = $(messageStanza.tree())
+                    var msgid = $message.attr('id')
+                    var from_jid = $message.attr('from')
+                    var to_jid = $message.attr('to')
+                    var body = $message.find('body').text();
+                    var house_token = $message.find('house_token').text();
+                    var house_title = $message.find('house_title').text();
+                    if (body != null && body != '' && from_jid != null) {
+                      $.post(converse.zuker_base_url + "archive_messages.js", {
+                        msgid: msgid, from_jid: from_jid, to_jid: to_jid, body: body, house_token: house_token, house_title: house_title, stanza: $message.get(0).outerHTML
+                      });
+                    }
                     if (this.model.get('chat_status') == 'offline') {
                         $.get(converse.zuker_base_url + "chats/notify.js", { jid: this.model.get('jid') });
                     }
