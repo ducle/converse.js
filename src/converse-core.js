@@ -1441,6 +1441,7 @@
                         'image': roster_item.get('image'),
                         'url': roster_item.get('url')
                     }, attrs || {}));
+                    chatbox.minimize();
                 }
                 return chatbox;
             }

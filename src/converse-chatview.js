@@ -718,7 +718,7 @@
                 },
 
                 focus: function () {
-                    if(this.$el.is(':visible')) {
+                    if($(this.el).is(':visible') && !this.model.get('minimized')) {
                       $('.controlbox#mySidenav').find(".open-chat[data-contact-jid='" + this.model.get('jid') + "'] img.avatar").addClass('selected-person');
                     }
                     this.$el.find('.chat-textarea').focus();
