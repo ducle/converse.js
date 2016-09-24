@@ -847,6 +847,7 @@
                       $(data).each(function (idx, obj) {
                           $(div1).append(converse.templates.house(obj));
                       })
+                      $(div1).find("option[value='" + house_token + "']").attr('selected', true);
                       if(data.length > 0) {
                           $(div1).closest('.landlord-container').removeClass('hide');
                           $('#conversejs .chatbox .chat-content').css('height', 'calc(100% - 130px)')
