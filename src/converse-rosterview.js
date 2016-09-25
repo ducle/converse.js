@@ -624,6 +624,7 @@
 
                     }
                     this.renderAvatar();
+                    if(converse.hide_contact) $(this.el).addClass('hide')
                     return this;
                 },
 

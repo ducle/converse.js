@@ -33,3 +33,27 @@
   border: solid 3px #d35400;
   border-radius: 50%;
 }
+
+.controlbox#mySidenav .badge-count {
+    position: absolute;
+    top: 1px;
+    background-color: orange;
+    padding: 2px;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: 0.2px;
+    color: #ffffff;
+    border-radius: 50%;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+.controlbox#mySidenav img.avatar {
+  width: 38px;
+}
+.controlbox#mySidenav .current-xmpp-contact .open-chat {
+  position: relative;
+}

@@ -256,6 +256,7 @@
             xhr_custom_status_url: '',
             zuker_base_url: '',
             contract_url: '',
+            hide_contact: false,
             house_jid: '',
             house_token: '',
             house_title: ''
