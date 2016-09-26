@@ -28,6 +28,12 @@
 #conversejs .editing-contract-msg {
   background: #e7b859 none repeat scroll 0 0;
 }
+#conversejs .left-msg-content {
+
+}
+#conversejs .right-msg-content {
+
+}
 
 .controlbox#mySidenav .selected-person {
   border: solid 3px #d35400;
