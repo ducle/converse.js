@@ -863,7 +863,9 @@
                       $(div1).find("option[value='" + house_token + "']").attr('selected', true);
                       if(data.length > 0) {
                           $(div1).closest('.landlord-container').removeClass('hide');
-                          $('#conversejs .chatbox .chat-content').css('height', 'calc(100% - 130px)')
+                          var $content2 = $('#conversejs .chatbox .chat-content')
+                          $content2.css('height', 'calc(100% - 130px)')
+                          $content2.scrollTop($content2[0].scrollHeight);
                       } else {
                         $(chatbox1).find('.chat-title .house-title').text(house_title)
                           .closest('a').attr('href', converse.zuker_base_url + "houses/" + house_token);
