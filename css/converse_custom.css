@@ -28,11 +28,24 @@
 #conversejs .editing-contract-msg {
   background: #e7b859 none repeat scroll 0 0;
 }
+#conversejs .left-msg-content, #conversejs .right-msg-content {
+  width: 135px;
+  border-radius: 4px;
+  padding: 4px;
+  margin-bottom: 4px;
+}
 #conversejs .left-msg-content {
-
+  float: left;
+  background: #ededed none repeat scroll 0 0;
+  color: #212121;
 }
 #conversejs .right-msg-content {
-
+  float: right;
+  background: #e7b859 none repeat scroll 0 0;
+  color: white;
+}
+#conversejs .chatbox .chat-body .chat-message {
+  clear: both;
 }
 
 .controlbox#mySidenav .selected-person {
