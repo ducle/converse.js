@@ -29,10 +29,13 @@
   background: #e7b859 none repeat scroll 0 0;
 }
 #conversejs .left-msg-content, #conversejs .right-msg-content {
-  width: 135px;
+  max-width: 165px !important;
   border-radius: 4px;
   padding: 4px;
   margin-bottom: 4px;
+  margin-left: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 #conversejs .left-msg-content {
   float: left;
@@ -49,11 +52,14 @@
 }
 #conversejs .chat-msg-author.chat-msg-them img {
  width: 32px;
+ height: 32px;
  border-radius: 50%;
 }
-.controlbox#mySidenav .selected-person {
+.controlbox#mySidenav .open-chat .selected-person {
   border: solid 3px #d35400;
   border-radius: 50%;
+  width: 38px;
+  height: 38px;
 }
 
 .controlbox#mySidenav .badge-count {
