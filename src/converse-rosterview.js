@@ -671,10 +671,13 @@
                     if (ev && ev.preventDefault) { ev.preventDefault(); }
                     converse.chatboxviews.each(function (view) {
                       if (view.model.get('id') !== 'controlbox') {
-                        // $('.controlbox#mySidenav').find(".open-chat[data-contact-jid='" + view.model.get('jid') + "'] img.avatar").removeClass('selected-person');
                         view.minimize();
                       }
                     });
+                    $.post(converse.zuker_base_url + "archive_messages/update_list.js",
+                      {jid: this.model.get('jid'), current_jid: converse.bare_jid}, function(){
+                        $.get(converse.zuker_base_url + "archive_messages/load_last_messages.js")
+                      });
                     return converse.chatboxviews.showChat(this.model.attributes);
                 },
 
