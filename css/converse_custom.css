@@ -25,10 +25,8 @@
 #conversejs #minimized-chats, #controlbox {
   display: none !important;
 }
-#conversejs .editing-contract-msg {
-  background: #e7b859 none repeat scroll 0 0;
-}
-#conversejs .left-msg-content, #conversejs .right-msg-content {
+
+#conversejs .left-msg-content .chat-msg-content, #conversejs .right-msg-content .chat-msg-content {
   max-width: 165px !important;
   border-radius: 4px;
   padding: 4px;
@@ -36,19 +34,34 @@
   margin-left: 6px;
   padding-left: 10px;
   padding-right: 10px;
+  font-size: 11px;
+  font-weight: 100;
+  line-height: 1.55;
+  letter-spacing: 0.2px;
 }
-#conversejs .left-msg-content {
+#conversejs .left-msg-content .chat-msg-content a {
+  color: #f39c12;
+}
+#conversejs .left-msg-content .chat-msg-content {
   float: left;
-  background: #ededed none repeat scroll 0 0;
-  color: #212121;
+  background: #f2f2f2 none repeat scroll 0 0;
+  color: #6e7a89;
 }
-#conversejs .right-msg-content {
+#conversejs .right-msg-content .chat-msg-content {
   float: right;
   background: #e7b859 none repeat scroll 0 0;
-  color: white;
+  color: #fff;
 }
 #conversejs .chatbox .chat-body .chat-message {
   clear: both;
+}
+#conversejs .chat-content .chat-info.chat-date {
+  font-size: 13px;
+  font-weight: 100;
+  line-height: 1.15;
+  text-align: center;
+  /* color: #a8b6c2; */
+  margin-bottom: 8px;
 }
 #conversejs .chat-msg-author.chat-msg-them img {
  width: 32px;
