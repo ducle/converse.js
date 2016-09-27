@@ -47,7 +47,10 @@
 #conversejs .chatbox .chat-body .chat-message {
   clear: both;
 }
-
+#conversejs .chat-msg-author.chat-msg-them img {
+ width: 32px;
+ border-radius: 50%;
+}
 .controlbox#mySidenav .selected-person {
   border: solid 3px #d35400;
   border-radius: 50%;
