@@ -303,6 +303,7 @@
                     var msg_time = moment(attrs.time) || moment,
                         text = attrs.message,
                         match = text.match(/^\/(.*?)(?: (.*))?$/),
+                        image_data =  'data:' + this.model.get('image_type') + ';base64,' + this.model.get('image'),
                         fullname = this.model.get('fullname') || attrs.fullname,
                         extra_classes = attrs.delayed && 'delayed' || '',
                         template, username;
@@ -330,6 +331,7 @@
                                 'time': msg_time.format('hh:mm'),
                                 'isodate': msg_time.format(),
                                 'username': username,
+                                'image_data': image_data,
                                 'message': '',
                                 'extra_classes': extra_classes
                             })

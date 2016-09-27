@@ -1,4 +1,8 @@
 <div class="chat-message {{extra_classes}}" data-isodate="{{isodate}}" data-msgid="{{msgid}}">
-    <span class="chat-msg-author chat-msg-{{sender}}">{[ if(username != 'me') { ]} {{username}}:&nbsp; {[ } ]}</span>
+    <span class="chat-msg-author chat-msg-{{sender}}">
+      {[ if(username != 'me') { ]}
+        <img src="{{image_data}}" title="{{username}}"/>
+      {[ } ]}
+    </span>
     <span class="chat-msg-content {[ if(username != 'me') { ]}left-msg-content{[ } else { ]}right-msg-content{[ } ]}">{{message}}</span>
 </div>
