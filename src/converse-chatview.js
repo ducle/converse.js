@@ -489,7 +489,7 @@
                       });
                     }
                     if (this.model.get('chat_status') == 'offline') {
-                        $.get(converse.zuker_base_url + "chats/notify.js", { jid: this.model.get('jid') });
+                        $.get(converse.zuker_base_url + "chats/notify.js", { jid: this.model.get('jid'), house_token: house_token });
                     }
                 },
 
