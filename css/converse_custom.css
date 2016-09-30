@@ -1,6 +1,12 @@
 #conversejs .chat-head.chat-head-chatbox {
   background-color: #1e5471;
 }
+#conversejs .chat-head.online .avatar {
+  border: 2px solid green;
+}
+#conversejs .chat-head.offline .avatar {
+  border: 2px solid red;
+}
 #conversejs .chatbox-btn {
   border: 0 solid white;
 }

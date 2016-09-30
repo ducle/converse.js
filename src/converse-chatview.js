@@ -644,12 +644,14 @@
                     fullname = _.isEmpty(fullname)? item.get('jid'): fullname;
                     if (this.$el.is(':visible')) {
                         if (chat_status === 'offline') {
-                            this.showStatusNotification(fullname+' '+__('has gone offline'));
+                            //this.showStatusNotification(fullname+' '+__('has gone offline'));
+                            $('#conversejs .chat-head').removeClass('online').addClass('offline')
                         } else if (chat_status === 'away') {
                             this.showStatusNotification(fullname+' '+__('has gone away'));
                         } else if ((chat_status === 'dnd')) {
                             this.showStatusNotification(fullname+' '+__('is busy'));
                         } else if (chat_status === 'online') {
+                            $('#conversejs .chat-head').removeClass('offline').addClass('online')
                             this.$el.find('div.chat-event').remove();
                         }
                     }
