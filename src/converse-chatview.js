@@ -324,6 +324,9 @@
                         // are mentioned.
                         extra_classes += ' mentioned';
                     }
+                    if (text.indexOf('class="show_html house_changed') > 0) {
+                      extra_classes += ' hide'; //hide 'house_changed' message
+                    }
                     var msg_content =  $(template(
                             _.extend(this.getExtraMessageTemplateAttributes(attrs), {
                                 'msgid': attrs.msgid,
@@ -483,7 +486,7 @@
                     var body = $message.find('body').text();
                     var house_token = $message.find('house_token').text();
                     var house_title = $message.find('house_title').text();
-                    if (body != null && body != '' && from_jid != null) {
+                    if (body != null && body != '' && from_jid != null && body.indexOf('class="show_html house_changed') < 0) {
                       $.post(converse.zuker_base_url + "archive_messages.js", {
                         msgid: msgid, from_jid: from_jid, to_jid: to_jid, body: body, house_token: house_token, house_title: house_title, stanza: $message.get(0).outerHTML
                       });
