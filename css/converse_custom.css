@@ -28,7 +28,7 @@
 #conversejs {
   margin-right: 60px;
 }
-#conversejs #controlbox, #conversejs #minimized-chats {
+#conversejs #controlbox, #conversejs #minimized-chats, #conversejs #toggle-controlbox {
   display: none !important;
 }
 
