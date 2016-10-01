@@ -241,7 +241,7 @@ window.gon={};
 
 
     <!-- side message bar -->
-    <div class="sidenav controlbox" id="mySidenav">
+    <div class="sidenav controlbox" id="mySidenav" style="width:100px">
       <a class="closebtn" href="#">×</a>
       <div class="content">
         <ul class='contacts'>
@@ -883,6 +883,7 @@ window.gon={};
 <script>
     require(['converse'], function (converse) {
         converse.initialize({
+            debug: false,
             bosh_service_url: 'http://localhost:7070/http-bind/', // Please use this connection manager only for testing purposes
             keepalive: true,
             message_carbons: false,
@@ -894,6 +895,7 @@ window.gon={};
             allow_contact_requests: false,
             allow_otr: false,
             visible_toolbar_buttons: { call: false, clear: false, emoticons: true, toggle_occupants: false },
+            auto_reconnect: true,
             auto_login: true,
             authentication: 'login',
             jid: 'user_2142@localhost',
