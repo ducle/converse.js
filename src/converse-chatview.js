@@ -490,9 +490,9 @@
                       $.post(converse.zuker_base_url + "archive_messages.js", {
                         msgid: msgid, from_jid: from_jid, to_jid: to_jid, body: body, house_token: house_token, house_title: house_title, stanza: $message.get(0).outerHTML
                       });
-                    }
-                    if (this.model.get('chat_status') == 'offline') {
-                        $.get(converse.zuker_base_url + "chats/notify.js", { jid: this.model.get('jid'), house_token: house_token });
+                      if (this.model.get('chat_status') == 'offline') {
+                          $.get(converse.zuker_base_url + "chats/notify.js", { jid: this.model.get('jid'), house_token: house_token });
+                      }
                     }
                 },
 
