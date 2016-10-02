@@ -18,7 +18,7 @@
     ], factory);
 }(this, function (
             converse,
-            converse_api, 
+            converse_api,
             tpl_group_header,
             tpl_pending_contact,
             tpl_requesting_contact,
@@ -266,8 +266,6 @@
                     converse.roster.on("remove", this.update, this);
                     this.model.on("add", this.onGroupAdd, this);
                     this.model.on("reset", this.reset, this);
-                    //this.$roster = $('<dl class="roster-contacts" style="display: none;"></dl>');
-                    this.$roster = $('#mySidenav.controlbox ul.contacts')
                     // Create a model on which we can store filter properties
                     var model = new converse.RosterFilter();
                     model.id = b64_sha1('converse.rosterfilter'+converse.bare_jid);
@@ -281,7 +279,8 @@
                 },
 
                 render: function () {
-                    this.$roster = $('<dl class="roster-contacts" style="display: none;"></dl>');
+                    //  this.$roster = $('<dl class="roster-contacts" style="display: none;"></dl>');
+                    this.$roster = $('#mySidenav.controlbox ul.contacts')
                     this.$el.html(this.filter_view.render());
                     if (!converse.allow_contact_requests) {
                         // XXX: if we ever support live editing of config then
