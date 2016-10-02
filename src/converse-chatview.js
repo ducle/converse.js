@@ -14,7 +14,8 @@
             "tpl!new_day",
             "tpl!action",
             "tpl!message",
-            "tpl!toolbar"
+            "tpl!toolbar",
+            "tpl!house"
     ], factory);
 }(this, function (
             converse,
@@ -23,7 +24,8 @@
             tpl_new_day,
             tpl_action,
             tpl_message,
-            tpl_toolbar
+            tpl_toolbar,
+            tpl_house
     ) {
     "use strict";
     converse.templates.chatbox = tpl_chatbox;
@@ -31,6 +33,7 @@
     converse.templates.action = tpl_action;
     converse.templates.message = tpl_message;
     converse.templates.toolbar = tpl_toolbar;
+    converse.templates.house = tpl_house;
 
     var $ = converse_api.env.jQuery,
         utils = converse_api.env.utils,
