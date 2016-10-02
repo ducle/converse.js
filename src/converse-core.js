@@ -22,13 +22,16 @@
         "utils",
         "moment_with_locales",
         "strophe",
-        "converse-templates",
         "pluggable",
+        "tpl!chats_panel",
         "strophe.disco",
         "backbone.browserStorage",
         "backbone.overview",
     ], factory);
-}(this, function ($, _, dummy, utils, moment, Strophe, templates, pluggable) {
+}(this, function (
+        $, _, dummy, utils, moment,
+        Strophe, pluggable, tpl_chats_panel
+    ) {
     /*
      * Cannot use this due to Safari bug.
      * See https://github.com/jcbrand/converse.js/issues/196
@@ -59,19 +62,25 @@
     var event_context = {};
 
     var converse = {
-        templates: templates,
+        templates: {'chats_panel': tpl_chats_panel},
 
         emit: function (evt, data) {
             $(event_context).trigger(evt, data);
         },
 
-        once: function (evt, handler) {
+        once: function (evt, handler, context) {
+            if (context) {
+                handler = handler.bind(context);
+            }
             $(event_context).one(evt, handler);
         },
 
-        on: function (evt, handler) {
+        on: function (evt, handler, context) {
             if (_.contains(['ready', 'initialized'], evt)) {
                 converse.log('Warning: The "'+evt+'" event has been deprecated and will be removed, please use "connected".');
+            }
+            if (context) {
+                handler = handler.bind(context);
             }
             $(event_context).bind(evt, handler);
         },
@@ -94,12 +103,13 @@
         'chat':         1, // We currently don't differentiate between "chat" and "online"
         'online':       1
     };
+    converse.ANONYMOUS  = "anonymous";
+    converse.CLOSED = 'closed';
+    converse.EXTERNAL = "external";
     converse.LOGIN = "login";
     converse.LOGOUT = "logout";
-    converse.ANONYMOUS  = "anonymous";
-    converse.PREBIND = "prebind";
     converse.OPENED = 'opened';
-    converse.CLOSED = 'closed';
+    converse.PREBIND = "prebind";
 
     var PRETTY_CONNECTION_STATUS = {
         0: 'ERROR',
@@ -133,6 +143,7 @@
 
     converse.initialize = function (settings, callback) {
         "use strict";
+        settings = typeof settings !== "undefined" ? settings : {};
         var init_deferred = new $.Deferred();
         var converse = this;
         var unloadevent;
@@ -214,7 +225,7 @@
         this.default_settings = {
             allow_contact_requests: true,
             animate: true,
-            authentication: 'login', // Available values are "login", "prebind", "anonymous".
+            authentication: 'login', // Available values are "login", "prebind", "anonymous" and "external".
             auto_away: 0, // Seconds after which user status is set to 'away'
             auto_login: false, // Currently only used in connection with anonymous login
             auto_reconnect: false,
@@ -658,33 +669,54 @@
         };
 
         this.initRoster = function () {
-            this.roster = new this.RosterContacts();
-            this.roster.browserStorage = new Backbone.BrowserStorage.session(
-                b64_sha1('converse.contacts-'+this.bare_jid));
-            this.rostergroups = new converse.RosterGroups();
-            this.rostergroups.browserStorage = new Backbone.BrowserStorage.session(
+            converse.roster = new converse.RosterContacts();
+            converse.roster.browserStorage = new Backbone.BrowserStorage.session(
+                b64_sha1('converse.contacts-'+converse.bare_jid));
+            converse.rostergroups = new converse.RosterGroups();
+            converse.rostergroups.browserStorage = new Backbone.BrowserStorage.session(
                 b64_sha1('converse.roster.groups'+converse.bare_jid));
         };
 
+        this.populateRoster = function () {
+            /* Fetch all the roster groups, and then the roster contacts.
+             * Emit an event after fetching is done in each case.
+             */
+            converse.rostergroups.fetchRosterGroups().then(function () {
+                converse.emit('rosterGroupsFetched');
+                converse.roster.fetchRosterContacts().then(function () {
+                    converse.emit('rosterContactsFetched');
+                    converse.sendInitialPresence();
+                });
+            });
+        };
+
         this.unregisterPresenceHandler = function () {
-            if (typeof this.presence_ref !== 'undefined') {
-                this.connection.deleteHandler(this.presence_ref);
-                delete this.presence_ref;
+            if (typeof converse.presence_ref !== 'undefined') {
+                converse.connection.deleteHandler(converse.presence_ref);
+                delete converse.presence_ref;
             }
         };
 
         this.registerPresenceHandler = function () {
-            this.unregisterPresenceHandler();
-            this.presence_ref = converse.connection.addHandler(
+            converse.unregisterPresenceHandler();
+            converse.presence_ref = converse.connection.addHandler(
                 function (presence) {
                     converse.roster.presenceHandler(presence);
                     return true;
                 }, null, 'presence', null);
         };
 
+
+        this.sendInitialPresence = function () {
+            if (converse.send_initial_presence) {
+                converse.xmppstatus.sendPresence();
+            }
+        };
+
         this.onStatusInitialized = function () {
             this.registerIntervalHandler();
             this.initRoster();
+            this.populateRoster();
             this.chatboxes.onConnected();
             this.registerPresenceHandler();
             this.giveFeedback(__('Contacts'));
@@ -868,6 +900,36 @@
                 } else  {
                     return converse.STATUS_WEIGHTS[status1] < converse.STATUS_WEIGHTS[status2] ? -1 : 1;
                 }
+            },
+
+            fetchRosterContacts: function () {
+                /* Fetches the roster contacts, first by trying the
+                 * sessionStorage cache, and if that's empty, then by querying
+                 * the XMPP server.
+                 *
+                 * Returns a promise which resolves once the contacts have been
+                 * fetched.
+                 */
+                var deferred = new $.Deferred();
+                this.fetch({
+                    add: true,
+                    success: function (collection) {
+                        if (collection.length === 0) {
+                            /* We don't have any roster contacts stored in sessionStorage,
+                             * so lets fetch the roster from the XMPP server. We pass in
+                             * 'sendPresence' as callback method, because after initially
+                             * fetching the roster we are ready to receive presence
+                             * updates from our contacts.
+                             */
+                            converse.send_initial_presence = true;
+                            converse.roster.fetchFromServer(deferred.resolve);
+                        } else {
+                            converse.emit('cachedRoster', collection);
+                            deferred.resolve();
+                        }
+                    }
+                });
+                return deferred.promise();
             },
 
             subscribeToSuggestedItems: function (msg) {
@@ -1209,6 +1271,22 @@
 
         this.RosterGroups = Backbone.Collection.extend({
             model: converse.RosterGroup,
+
+            fetchRosterGroups: function () {
+                /* Fetches all the roster groups from sessionStorage.
+                 *
+                 * Returns a promise which resolves once the groups have been
+                 * returned.
+                 */
+                var deferred = new $.Deferred();
+                this.fetch({
+                    silent: true, // We need to first have all groups before
+                                  // we can start positioning them, so we set
+                                  // 'silent' to true.
+                    success: deferred.resolve
+                });
+                return deferred.promise();
+            }
         });
 
 

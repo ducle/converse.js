@@ -7,9 +7,30 @@
 /*global Backbone, define */
 
 (function (root, factory) {
-    define("converse-rosterview", ["converse-core", "converse-api"], factory);
-}(this, function (converse, converse_api) {
+    define("converse-rosterview", [
+            "converse-core",
+            "converse-api",
+            "tpl!group_header",
+            "tpl!pending_contact",
+            "tpl!requesting_contact",
+            "tpl!roster",
+            "tpl!roster_item"
+    ], factory);
+}(this, function (
+            converse,
+            converse_api, 
+            tpl_group_header,
+            tpl_pending_contact,
+            tpl_requesting_contact,
+            tpl_roster,
+            tpl_roster_item) {
     "use strict";
+    converse.templates.group_header = tpl_group_header;
+    converse.templates.pending_contact = tpl_pending_contact;
+    converse.templates.requesting_contact = tpl_requesting_contact;
+    converse.templates.roster = tpl_roster;
+    converse.templates.roster_item = tpl_roster_item;
+
     var $ = converse_api.env.jQuery,
         utils = converse_api.env.utils,
         Strophe = converse_api.env.Strophe,
@@ -29,6 +50,17 @@
             afterReconnected: function () {
                 this.rosterview.registerRosterXHandler();
                 this.__super__.afterReconnected.apply(this, arguments);
+            },
+
+            initRoster: function () {
+                /* Create an instance of RosterView once the RosterGroups
+                 * collection has been created (in converse-core.js)
+                 */
+                this.__super__.initRoster.apply(this, arguments);
+                converse.rosterview = new converse.RosterView({
+                    'model': converse.rostergroups
+                });
+                converse.rosterview.render();
             },
 
             RosterGroups: {
@@ -243,9 +275,13 @@
                     this.filter_view = new converse.RosterFilterView({'model': model});
                     this.filter_view.model.on('change', this.updateFilter, this);
                     this.filter_view.model.fetch();
+                    converse.on('rosterGroupsFetched', this.positionFetchedGroups, this);
+                    converse.on('rosterContactsFetched', this.update, this);
+                    this.createRosterFilter();
                 },
 
                 render: function () {
+                    this.$roster = $('<dl class="roster-contacts" style="display: none;"></dl>');
                     this.$el.html(this.filter_view.render());
                     if (!converse.allow_contact_requests) {
                         // XXX: if we ever support live editing of config then
@@ -253,6 +289,16 @@
                         this.$el.addClass('no-contact-requests');
                     }
                     return this;
+                },
+
+                createRosterFilter: function () {
+                    // Create a model on which we can store filter properties
+                    var model = new converse.RosterFilter();
+                    model.id = b64_sha1('converse.rosterfilter'+converse.bare_jid);
+                    model.browserStorage = new Backbone.BrowserStorage.local(this.filter.id);
+                    this.filter_view = new converse.RosterFilterView({'model': model});
+                    this.filter_view.model.on('change', this.updateFilter, this);
+                    this.filter_view.model.fetch();
                 },
 
                 updateFilter: _.debounce(function () {
@@ -294,45 +340,6 @@
                     } else if (!this.filter_view.isActive()) {
                         this.filter_view.hide();
                     }
-                    return this;
-                },
-
-                fetch: function () {
-                    this.model.fetch({
-                        silent: true, // We use the success handler to handle groups that were added,
-                                    // we need to first have all groups before positionFetchedGroups
-                                    // will work properly.
-                        success: function (collection, resp, options) {
-                            if (collection.length !== 0) {
-                                this.positionFetchedGroups(collection, resp, options);
-                            }
-                            converse.roster.fetch({
-                                add: true,
-                                success: function (collection) {
-                                    if (collection.length === 0) {
-                                        /* We don't have any roster contacts stored in sessionStorage,
-                                         * so lets fetch the roster from the XMPP server. We pass in
-                                         * 'sendPresence' as callback method, because after initially
-                                         * fetching the roster we are ready to receive presence
-                                         * updates from our contacts.
-                                         */
-                                        converse.roster.fetchFromServer(
-                                                converse.xmppstatus.sendPresence.bind(converse.xmppstatus));
-                                    } else {
-                                        converse.emit('cachedRoster', collection);
-                                        if (converse.send_initial_presence) {
-                                            /* We're not going to fetch the roster again because we have
-                                            * it already cached in sessionStorage, but we still need to
-                                            * send out a presence stanza because this is a new session.
-                                            * See: https://github.com/jcbrand/converse.js/issues/536
-                                            */
-                                            converse.xmppstatus.sendPresence();
-                                        }
-                                    }
-                                }
-                            });
-                        }.bind(this)
-                    });
                     return this;
                 },
 
@@ -451,8 +458,8 @@
                      * positioned aren't already in inserted into the
                      * roster DOM element.
                      */
-                    model.sort();
-                    model.each(function (group, idx) {
+                    this.model.sort();
+                    this.model.each(function (group, idx) {
                         var view = this.get(group.get('name'));
                         if (!view) {
                             view = new converse.RosterGroupView({model: group});

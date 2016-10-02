@@ -7,9 +7,31 @@
 /*global Backbone, define */
 
 (function (root, factory) {
-    define("converse-chatview", ["converse-core", "converse-api"], factory);
-}(this, function (converse, converse_api) {
+    define("converse-chatview", [
+            "converse-core",
+            "converse-api",
+            "tpl!chatbox",
+            "tpl!new_day",
+            "tpl!action",
+            "tpl!message",
+            "tpl!toolbar"
+    ], factory);
+}(this, function (
+            converse,
+            converse_api,
+            tpl_chatbox,
+            tpl_new_day,
+            tpl_action,
+            tpl_message,
+            tpl_toolbar
+    ) {
     "use strict";
+    converse.templates.chatbox = tpl_chatbox;
+    converse.templates.new_day = tpl_new_day;
+    converse.templates.action = tpl_action;
+    converse.templates.message = tpl_message;
+    converse.templates.toolbar = tpl_toolbar;
+
     var $ = converse_api.env.jQuery,
         utils = converse_api.env.utils,
         Strophe = converse_api.env.Strophe,
@@ -170,11 +192,15 @@
                     this.$content.find('div.chat-event').remove();
                 },
 
-                showStatusNotification: function (message, keep_old) {
+                showStatusNotification: function (message, keep_old, permanent) {
                     if (!keep_old) {
                         this.clearStatusNotification();
                     }
-                    this.$content.append($('<div class="chat-info chat-event"></div>').text(message));
+                    var $el = $('<div class="chat-info"></div>').text(message);
+                    if (!permanent) {
+                        $el.addClass('chat-event');
+                    }
+                    this.$content.append($el);
                     this.scrollDown();
                 },
 
@@ -326,6 +352,14 @@
                     }
                     if (text.indexOf('class="show_html house_changed') > 0) {
                       extra_classes += ' hide'; //hide 'house_changed' message
+                    }
+                    if (text.length > 8000) {
+                        text = text.substring(0, 10) + '...';
+                        this.showStatusNotification(
+                            __("A very large message has been received."+
+                               "This might be due to an attack meant to degrade the chat performance."+
+                               "Output has been shortened."),
+                            true, true);
                     }
                     var msg_content =  $(template(
                             _.extend(this.getExtraMessageTemplateAttributes(attrs), {

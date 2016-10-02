@@ -1,6 +1,15 @@
 # Changelog
 
-## 2.0.0 (Unreleased)
+## 2.0.1 (Unreleased)
+- Allow the context (i.e. `this` value) to be passed in when registering event
+  listeners with `converse.listen.on` and `converse.listen.once`. [jcbrand]
+- New event ['rosterContactsFetched'](https://conversejs.org/docs/html/development.html#rosterContactsFetched) [jcbrand]
+- New event ['rosterGroupsFetched'](https://conversejs.org/docs/html/development.html#rosterGroupsFetched) [jcbrand]
+- HTML templates are now loaded in the respective modules/plugins. [jcbrand]
+
+## 2.0.0 (2016-09-16)
+- #656 Online users count not shown initially [amanzur]
+- #674 Polish translation updated [ser]
 - Backwards incompatible change: the `_super` attribute in plugins is now named `__super__`. [jcbrand]
 - Continuously attempt to resurrect dead connections when `auto_reconnect` is `true`. [jcbrand]
 - Update the 'rooms' API to allow user to pass in room attributes. [jcbrand]
@@ -8,6 +17,7 @@
 - Hardcode the storage for roster contacts and chatroom occupants to `sessionStorage`. [jcbrand]
 - Fixed wrong chat state value, should be `chat`, not `chatty`.
   See [RFC 3921](https://xmpp.org/rfcs/rfc3921.html#rfc.section.2.1.2.2). [jcbrand]
+- Adds support for SASL-EXTERNAL. [jcbrand]
 
 ## 1.0.6 (2016-08-12)
 - #632 Offline and Logout states do not properly update once users start
