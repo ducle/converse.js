@@ -1,9 +1,8 @@
 {[ if (allow_chat_pending_contacts)  { ]}
-<a class="open-chat"href="#">
+<a class="open-chat" data-contact-jid="{{jid}}" href="#">
 {[ } ]}
-<span class="pending-contact-name" title="Name: {{fullname}}
-JID: {{jid}}">{{fullname}}</span> 
+<img class="avatar img-circle" />
+<p class="badge-count hide contact" data-badge-count='0'></p>
 {[ if (allow_chat_pending_contacts)  { ]}
 </a>
 {[ } ]}
-<a class="remove-xmpp-contact icon-remove" title="{{desc_remove}}" href="#"></a>
