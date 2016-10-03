@@ -1,3 +1,11 @@
+#conversejs .chatbox .chat-title {
+  width: 100%;
+  height: auto;
+  overflow: inherit;
+  transform: translate(19%, -50%);
+  top: 50%;
+  position: absolute;
+}
 #conversejs .chat-head.chat-head-chatbox {
   background-color: #1e5471;
 }
@@ -10,6 +18,10 @@
 #conversejs .chatbox .box-flyout {
   min-width: 270px;
   width: 270px;
+}
+#conversejs .chat-head .avatar {
+  margin-top: 4px;
+  margin-left: 6px;
 }
 #conversejs .chat-head.online .avatar {
   border: 2px solid green;

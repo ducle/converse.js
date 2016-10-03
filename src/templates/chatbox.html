@@ -5,6 +5,7 @@
     <div class="chat-head chat-head-chatbox {{chat_status}}">
         <a class="chatbox-btn close-chatbox-button icon-close" title="{{info_close}}"></a>
         <div class="chat-title">
+          <div>
             {[ if (url) { ]}
                 <a href="{{url}}" target="_blank" rel="noopener" class="user">
             {[ } ]}
@@ -12,12 +13,14 @@
             {[ if (url) { ]}
                 </a>
             {[ } ]}
-            <br>
+          </div>
+          <div>
             <a href="javascript:void(0)">
               <small class='house-title'></small>
             </a>
+          </div>
         </div>
-        <p class="user-custom-message"><p/>
+        <p class="user-custom-message hide"><p/>
     </div>
 
 
