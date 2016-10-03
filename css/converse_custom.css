@@ -1,8 +1,8 @@
 #conversejs .chatbox .chat-title {
-  width: 100%;
+  width: 71%;
   height: auto;
   overflow: inherit;
-  transform: translate(19%, -50%);
+  transform: translate(27%, -50%);
   top: 50%;
   position: absolute;
 }
