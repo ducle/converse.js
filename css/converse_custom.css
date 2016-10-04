@@ -1,3 +1,6 @@
+#conversejs .chat-toolbar ul {
+  width: 249px;
+}
 #conversejs .chatbox .chat-title {
   width: 71%;
   height: auto;
