@@ -896,6 +896,7 @@
 
                 render: function() {
                     console.log('render houses ----')
+                    var this0 = this;
                     var div1 = this.el;
                     $(this.el).html('');
                     var chatbox1 = $(div1).closest('.chatbox');
@@ -915,6 +916,7 @@
                         $(chatbox1).find('.chat-title .house-title').text(house_title)
                           .closest('a').attr('href', converse.zuker_base_url + "houses/" + house_token);
                       }
+                      converse.emit('housesRendered', this0);
                     });
 
                     return this;
