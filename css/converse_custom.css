@@ -107,6 +107,7 @@
   background: white;
   transform: translate(0,-30px);
 }
+/*
 .controlbox#mySidenav .open-chat .selected-person {
   border: solid 3px #d35400;
   border-radius: 50%;
@@ -137,3 +138,4 @@
 .controlbox#mySidenav .current-xmpp-contact .open-chat {
   position: relative;
 }
+*/
