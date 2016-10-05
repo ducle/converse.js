@@ -280,7 +280,7 @@
 
                 render: function () {
                     //  this.$roster = $('<dl class="roster-contacts" style="display: none;"></dl>');
-                    this.$roster = $('#mySidenav.controlbox ul.contacts')
+                    this.$roster = $('<ul class="roster-contacts" style="display: none;"></ul>');
                     this.$el.html(this.filter_view.render());
                     if (!converse.allow_contact_requests) {
                         // XXX: if we ever support live editing of config then
@@ -370,9 +370,8 @@
                 reset: function () {
                     converse.roster.reset();
                     this.removeAll();
-                    //this.$roster = $('<dl class="roster-contacts" style="display: none;"></dl>');
-                    $('#mySidenav.controlbox ul.contacts').html('')
-                    this.$roster = $('#mySidenav.controlbox ul.contacts')
+                    //  this.$roster = $('<dl class="roster-contacts" style="display: none;"></dl>');
+                    this.$roster = $('<ul class="roster-contacts" style="display: none;"></ul>');
                     this.render().update();
                     return this;
                 },
@@ -680,9 +679,10 @@
                         view.minimize();
                       }
                     });
+                    var jid = this.model.get('jid');
                     $.post(converse.zuker_base_url + "archive_messages/update_list.js",
-                      {jid: this.model.get('jid'), current_jid: converse.bare_jid}, function(){
-                        $.get(converse.zuker_base_url + "archive_messages/load_last_messages.js")
+                      {jid: jid, current_jid: converse.bare_jid}, function(){
+                        $.get(converse.zuker_base_url + "archive_messages/load_contacts.js", { jid: jid, current_jid: converse.bare_jid })
                       });
                     return converse.chatboxviews.showChat(this.model.attributes);
                 },
