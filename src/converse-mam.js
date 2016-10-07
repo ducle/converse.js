@@ -58,8 +58,8 @@
 
             ChatBoxView: {
                 render: function () {
-                    this.model.messages.reset();
-                    this.model.messages.browserStorage._clear();
+                    //  this.model.messages.reset();
+                    //  this.model.messages.browserStorage._clear();
                     var result = this.__super__.render.apply(this, arguments);
                     if (!this.disable_mam) {
                         this.$content.on('scroll', _.debounce(this.onScroll.bind(this), 100));

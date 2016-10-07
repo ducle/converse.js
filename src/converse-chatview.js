@@ -302,13 +302,21 @@
                     msg_dates = _.map(this.$content.children('.chat-message'), function (el) {
                         return $(el).data('isodate');
                     });
+                    this.$content.children('time').each(function(ind, el){
+                      msg_dates.push($(el).data('isodate'));
+                    });
                     msg_dates.push(current_msg_date);
                     msg_dates.sort();
                     idx = msg_dates.indexOf(current_msg_date)-1;
                     _.compose(
                             this.scrollDownMessageHeight.bind(this),
                             function ($el) {
-                                $el.insertAfter(this.$content.find('.chat-message[data-isodate="'+msg_dates[idx]+'"]'));
+                                //  $el.insertAfter(this.$content.find('.chat-message[data-isodate="'+msg_dates[idx]+'"]'));
+                                var $pr = this.$content.find('.chat-message[data-isodate="'+msg_dates[idx]+'"]')
+                                if($pr.length == 0) {
+                                  $pr = this.$content.find('time[data-isodate="'+msg_dates[idx]+'"]')
+                                }
+                                $el.insertAfter($pr);
                                 return $el;
                             }.bind(this)
                         )(this.renderMessage(attrs));
