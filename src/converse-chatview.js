@@ -125,7 +125,8 @@
                 },
 
                 setHouse: function () {
-                  var house_title = '', house_token = '';
+                  var house_title = this.$el.find('form.sendXMPPMessage input[name=house_title]').val();
+                  var house_token = this.$el.find('form.sendXMPPMessage input[name=house_token]').val();
                   if(converse.house_token != null && converse.house_token != '' && converse.house_jid == this.model.id) {
                     house_token = converse.house_token
                     house_title = converse.house_title
@@ -264,6 +265,12 @@
                      * Parameters:
                      *  (Object) attrs: An object containing the message attributes.
                      */
+                     var text = attrs.message
+                     if (text.indexOf('class="show_html contact_added') > 0) {
+                       $(this.el).find('form.sendXMPPMessage input[name=house_token]').val(attrs.house_token);
+                       $(this.el).find('form.sendXMPPMessage input[name=house_title]').val(attrs.house_title);
+                       return;
+                     }
                     var msg_dates, idx,
                         $first_msg = this.$content.children('.chat-message:first'),
                         first_msg_date = $first_msg.data('isodate'),
@@ -361,7 +368,7 @@
                         // are mentioned.
                         extra_classes += ' mentioned';
                     }
-                    if (text.indexOf('class="show_html house_changed') > 0) {
+                    if (text.indexOf('class="show_html house_changed') > 0 || text.indexOf('class="show_html contact_added') > 0) {
                       extra_classes += ' hide'; //hide 'house_changed' message
                     }
                     if (text.length > 8000) {
@@ -531,7 +538,7 @@
                     var body = $message.find('body').text();
                     var house_token = $message.find('house_token').text();
                     var house_title = $message.find('house_title').text();
-                    if (body != null && body != '' && from_jid != null && body.indexOf('class="show_html house_changed') < 0) {
+                    if (body != null && body != '' && from_jid != null && body.indexOf('class="show_html house_changed') < 0  && body.indexOf('class="show_html contact_added') < 0) {
                       $.post(converse.zuker_base_url + "archive_messages.js", {
                         msgid: msgid, from_jid: from_jid, to_jid: to_jid, body: body, house_token: house_token, house_title: house_title, stanza: $message.get(0).outerHTML
                       });
