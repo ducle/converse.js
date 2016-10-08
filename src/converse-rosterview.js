@@ -674,12 +674,14 @@
 
                 openChat: function (ev) {
                     if (ev && ev.preventDefault) { ev.preventDefault(); }
+                    var jid = this.model.get('jid');
                     converse.chatboxviews.each(function (view) {
                       if (view.model.get('id') !== 'controlbox') {
-                        view.minimize();
+                        if($(view.el).is(':visible') && jid != $(view.el).find('.chat-body').data('jid')) {
+                          view.close();
+                        }
                       }
                     });
-                    var jid = this.model.get('jid');
                     $.post(converse.zuker_base_url + "archive_messages/update_list.js",
                       {jid: jid, current_jid: converse.bare_jid}, function(){
                         $.get(converse.zuker_base_url + "archive_messages/load_contacts.js", { jid: jid, current_jid: converse.bare_jid })
