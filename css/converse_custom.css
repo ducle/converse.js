@@ -53,10 +53,11 @@
 #conversejs {
   margin-right: 60px;
 }
+/*
 #conversejs #controlbox, #conversejs #minimized-chats, #conversejs #toggle-controlbox {
   display: none !important;
 }
-
+*/
 #conversejs .left-msg-content .chat-msg-content, #conversejs .right-msg-content .chat-msg-content {
   max-width: 165px !important;
   border-radius: 4px;
@@ -106,6 +107,12 @@
   display: inline-block;
   background: white;
   transform: translate(0,-30px);
+}
+#conversejs .open-chat .avatar {
+  border: solid 3px #d35400;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
 }
 /*
 .controlbox#mySidenav .open-chat .selected-person {
