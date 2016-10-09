@@ -34,15 +34,26 @@
       <div class="new-msgs-indicator hidden">▼ {{ unread_msgs }} ▼</div>
       {[ if (show_textarea) { ]}
       <form class="sendXMPPMessage" action="" method="post">
+        <div class="chat_submit_box">
+          <div class="uk-input-group">
+            <div class="gurdeep-chat-box">
+              <textarea type="text" class="md-input chat-textarea" id="submit_message" name="submit_message" placeholder="Write a reply" />
+            </div>
+            <span class="attacment-buttons">
+              {[ if (show_toolbar) { ]}
+                  <ul class="chat-toolbar no-text-select"></ul>
+              {[ } ]}
+            </span>
+          </div>
+        </div>
+        <!--
         <textarea
             type="text"
             class="chat-textarea"
             placeholder="{{label_personal_message}}"/>
+        -->
           <input type='hidden' name='house_token' value="" />
           <input type='hidden' name='house_title' value="" />
-          {[ if (show_toolbar) { ]}
-              <ul class="chat-toolbar no-text-select"></ul>
-          {[ } ]}
       </form>
         {[ } ]}
     </div>
