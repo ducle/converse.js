@@ -927,6 +927,12 @@
                           var $content2 = $('#conversejs .chatbox .chat-content')
                           $content2.css('height', 'calc(100% - 130px)')
                           $content2.scrollTop($content2[0].scrollHeight);
+                          if(house_token == '') {
+                            house_token = $(div1).find('option:first').val()
+                            house_title = $(div1).find('option:first').attr('data-title')
+                            $(chatbox1).find('form.sendXMPPMessage input[name=house_token]').val(house_token);
+                            $(chatbox1).find('form.sendXMPPMessage input[name=house_title]').val(house_title)
+                          }
                       }
                       $(chatbox1).find('.chat-title .house-title').text(house_title)
                         .closest('a').attr('href', converse.zuker_base_url + "houses/" + house_token);

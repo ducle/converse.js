@@ -265,6 +265,7 @@
             websocket_url: undefined,
             xhr_custom_status: false,
             xhr_custom_status_url: '',
+            readonly_replybox: false,
             zuker_base_url: '',
             hide_contact: false,
             house_jid: '',

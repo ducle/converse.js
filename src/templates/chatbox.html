@@ -37,7 +37,7 @@
         <div class="chat_submit_box">
           <div class="uk-input-group">
             <div class="gurdeep-chat-box">
-              <textarea type="text" class="md-input chat-textarea" id="submit_message" name="submit_message" placeholder="Write a reply" />
+              <textarea type="text" class="md-input chat-textarea" id="submit_message" name="submit_message" placeholder="Write a reply" {[ if(converse.settings.get('readonly_replybox')) { ]}readonly="true"{[ } ]} />
             </div>
             <span class="attacment-buttons">
               {[ if (show_toolbar) { ]}
@@ -46,12 +46,7 @@
             </span>
           </div>
         </div>
-        <!--
-        <textarea
-            type="text"
-            class="chat-textarea"
-            placeholder="{{label_personal_message}}"/>
-        -->
+        <!--  <textarea type="text" class="chat-textarea" placeholder="{{label_personal_message}}"/> -->
           <input type='hidden' name='house_token' value="" />
           <input type='hidden' name='house_title' value="" />
       </form>
