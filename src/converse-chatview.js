@@ -110,6 +110,7 @@
                     this.model.on('change:status', this.onStatusChanged, this);
                     this.model.on('showHelpMessages', this.showHelpMessages, this);
                     this.model.on('sendMessage', this.sendMessage, this);
+                    this.model.set('url', converse.zuker_base_url + this.model.get('user_id').replace('_', 's/'))
                     this.render().fetchMessages().insertIntoDOM().afterShown();
                     _.delay(_.bind(function() {
                         this.setHouse().renderHouses();
@@ -785,7 +786,8 @@
 
                     };
                     img.src = img_src;
-                    this.$el.find('.chat-title').before(canvas);
+                    //  this.$el.find('.chat-title').before(canvas);
+                    this.$el.find('canvas.avatar').replaceWith(canvas);
                     return this;
                 },
 
