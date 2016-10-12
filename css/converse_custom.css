@@ -12,6 +12,12 @@
 #conversejs .chat-head.chat-head-chatbox {
   background-color: #1e5471;
 }
+#conversejs .chat-head .house-title {
+  padding-top: 4px;
+}
+#conversejs .chat-head .a-house-title {
+  display: flex;
+}
 #conversejs .chatbox {
   width: 270px;
 }
