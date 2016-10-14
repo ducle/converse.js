@@ -168,6 +168,15 @@
   outline: none;
 }
 
+#conversejs div.houses {
+  background: #0d95ce;
+  color: white;
+  display: block;
+  height: 3rem;
+  text-align: center;
+  padding-top: 12px;
+}
+
 /*
 .controlbox#mySidenav .open-chat .selected-person {
   border: solid 3px #d35400;

@@ -953,6 +953,10 @@
                             $(chatbox1).find('form.sendXMPPMessage input[name=house_token]').val(house_token);
                             $(chatbox1).find('form.sendXMPPMessage input[name=house_title]').val(house_title)
                           }
+                          if(data.length == 1) {
+                            var house_title2 = $(div1).find('option:first').attr('data-title')
+                            $(div1).replaceWith("<div class='houses'>" + house_title2 + "</div>")
+                          }
                       }
                       $(chatbox1).find('.chat-title .house-title').text(house_title)
                         .closest('a').attr('href', converse.zuker_base_url + "houses/" + house_token);
