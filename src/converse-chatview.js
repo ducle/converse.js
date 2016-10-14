@@ -113,7 +113,8 @@
                     this.model.set('url', converse.zuker_base_url + this.model.get('user_id').replace('_', 's/'))
                     this.render().fetchMessages().insertIntoDOM().afterShown();
                     _.delay(_.bind(function() {
-                        this.setHouse().renderHouses();
+                        //  this.setHouse().renderHouses();
+                        this.renderHouses();
                    }, this), 1000)
 
                     // XXX: adding the event below to the events map above doesn't work.
@@ -124,7 +125,7 @@
                     this.$el.find('.chat-content').on('scroll', this.markScrolled.bind(this));
                     converse.emit('chatBoxInitialized', this);
                 },
-
+                /*
                 setHouse: function () {
                   var house_title = this.$el.find('form.sendXMPPMessage input[name=house_title]').val();
                   var house_token = this.$el.find('form.sendXMPPMessage input[name=house_token]').val();
@@ -146,6 +147,7 @@
                   this.$el.find('form.sendXMPPMessage input[name=house_title]').val(house_title);
                   return this;
                 },
+                */
 
                 render: function () {
                     this.$el.attr('id', this.model.get('box_id'))
@@ -236,7 +238,17 @@
                         datestring: day_date.format("dddd MMM Do YYYY")
                     }));
                 },
-
+                insertDayIndicatorAfter: function (date, item) {
+                    /*
+                     * Parameters:
+                     *  (String) date - An ISO8601 date string.
+                     */
+                    var day_date = moment(date).startOf('day');
+                    $(item).after(converse.templates.new_day({
+                        isodate: day_date.format(),
+                        datestring: day_date.format("dddd MMM Do YYYY")
+                    }));
+                },
                 insertMessage: function (attrs, prepend) {
                     /* Helper method which appends a message (or prepends if the
                      * 2nd parameter is set to true) to the end of the chat box's
@@ -266,18 +278,19 @@
                      * Parameters:
                      *  (Object) attrs: An object containing the message attributes.
                      */
-                     var text = attrs.message
-                     if (text.indexOf('class="show_html contact_added') > 0) {
-                       $(this.el).find('form.sendXMPPMessage input[name=house_token]').val(attrs.house_token);
-                       $(this.el).find('form.sendXMPPMessage input[name=house_title]').val(attrs.house_title);
-                       return;
-                     }
                     var msg_dates, idx,
                         $first_msg = this.$content.children('.chat-message:first'),
                         first_msg_date = $first_msg.data('isodate'),
                         current_msg_date = moment(attrs.time) || moment,
                         last_msg_date = this.$content.children('.chat-message:last').data('isodate');
-
+                    var text = attrs.message
+                    if (text.indexOf('class="show_html contact_added') > 0 || text.indexOf('class="show_html house_changed') > 0) {
+                      if (!first_msg_date || current_msg_date.isAfter(last_msg_date)) {
+                        $(this.el).find('form.sendXMPPMessage input[name=house_token]').val(attrs.house_token);
+                        $(this.el).find('form.sendXMPPMessage input[name=house_title]').val(attrs.house_title);
+                        return;
+                      }
+                    }
                     if (!first_msg_date) {
                         // This is the first received message, so we insert a
                         // date indicator before it.
@@ -323,6 +336,11 @@
                                 var $pr = this.$content.find('.chat-message[data-isodate="'+msg_dates[idx]+'"]')
                                 if($pr.length == 0) {
                                   $pr = this.$content.find('time[data-isodate="'+msg_dates[idx]+'"]')
+                                } else {
+                                  if (!moment(current_msg_date).isSame($pr.data('isodate'), 'day')) {
+                                    this.insertDayIndicatorAfter(current_msg_date, $pr);
+                                    $pr = $pr.next()
+                                  }
                                 }
                                 $el.insertAfter($pr);
                                 return $el;
@@ -539,11 +557,11 @@
                     var body = $message.find('body').text();
                     var house_token = $message.find('house_token').text();
                     var house_title = $message.find('house_title').text();
-                    if (body != null && body != '' && from_jid != null && body.indexOf('class="show_html house_changed') < 0  && body.indexOf('class="show_html contact_added') < 0) {
+                    if (body != null && body != '' && from_jid != null && body.indexOf('class="show_html house_changed') < 0) {
                       $.post(converse.zuker_base_url + "archive_messages.js", {
                         msgid: msgid, from_jid: from_jid, to_jid: to_jid, body: body, house_token: house_token, house_title: house_title, stanza: $message.get(0).outerHTML
                       });
-                      if (this.model.get('chat_status') == 'offline') {
+                      if (this.model.get('chat_status') == 'offline' && body.indexOf('class="show_html contact_added') < 0) {
                           $.get(converse.zuker_base_url + "chats/notify.js", { jid: this.model.get('jid'), current_jid: converse.bare_jid, house_token: house_token });
                       }
                     }
