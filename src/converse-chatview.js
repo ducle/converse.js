@@ -909,7 +909,7 @@
                 editContract: function () {
                   this.onMessageSubmitted('<span class="show_html editing-contract-msg">The landlord is editing the contract.</span>');
                   var house_token = $(this.el).find('form.sendXMPPMessage input[name=house_token]').val();
-                  location.href = converse.zuker_base_url + "houses/" + house_token + "/contract/" + this.model.get('user_id');
+                  location.href = converse.zuker_base_url + "houses/" + house_token + "/contracts/" + this.model.get('user_id') + '/landlord';
                 },
                 changeHouse: function (ev) {
                     if (ev && ev.preventDefault) { ev.preventDefault(); }
