@@ -433,10 +433,12 @@
 
                 handleChatStateMessage: function (message) {
                     if (message.get('chat_state') === converse.COMPOSING) {
-                        this.showStatusNotification(message.get('fullname')+' '+__('is typing'));
+                        //  this.showStatusNotification(message.get('fullname')+' '+__('is typing'));
+                        this.showStatusNotification('...');
                         this.clear_status_timeout = window.setTimeout(this.clearStatusNotification.bind(this), 30000);
                     } else if (message.get('chat_state') === converse.PAUSED) {
-                        this.showStatusNotification(message.get('fullname')+' '+__('has stopped typing'));
+                        //  this.showStatusNotification(message.get('fullname')+' '+__('has stopped typing'));
+                        this.showStatusNotification('');
                     } else if (_.contains([converse.INACTIVE, converse.ACTIVE], message.get('chat_state'))) {
                         this.$content.find('div.chat-event').remove();
                     } else if (message.get('chat_state') === converse.GONE) {
