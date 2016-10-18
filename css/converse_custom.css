@@ -1,5 +1,5 @@
 #conversejs .chatbox .chat-title {
-  width: 71%;
+  width: 172px;
   height: auto;
   overflow: inherit;
   transform: translate(27%, -50%);
@@ -13,7 +13,7 @@
   background-color: #1e5471;
 }
 #conversejs .chat-head .house-title {
-  padding-top: 4px;
+  padding-top: 6px;
 }
 #conversejs .chat-head .a-house-title {
   display: flex;
@@ -82,23 +82,24 @@
 #conversejs .left-msg-content .chat-msg-content {
   float: left;
   background: #f2f2f2 none repeat scroll 0 0;
-  color: #6e7a89;
+  color: #4a4a4a;
 }
 #conversejs .right-msg-content .chat-msg-content {
   float: right;
-  background: #e7b859 none repeat scroll 0 0;
-  color: #fff;
+  background: rgba(231, 184, 89, 0.4) none repeat scroll 0 0;
+  color: #4a4a4a;
 }
 #conversejs .chatbox .chat-body .chat-message {
   clear: both;
 }
 #conversejs .chat-content .chat-info.chat-date {
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 100;
   line-height: 1.15;
   text-align: center;
   /* color: #a8b6c2; */
   margin-bottom: 8px;
+    color: #a8b6c2 ;
 }
 #conversejs .chat-msg-author.chat-msg-them img {
  width: 32px;
@@ -159,7 +160,7 @@
   font-stretch: normal;
   line-height: 1.46;
   letter-spacing: 0.7px;
-  color: #c6cfd6;
+  color: #4a4a4a;
 }
 
 #conversejs #submit_message:focus {
@@ -176,7 +177,9 @@
   text-align: center;
   padding-top: 12px;
 }
-
+#conversejs select {
+  border:none;
+}
 /*
 .controlbox#mySidenav .open-chat .selected-person {
   border: solid 3px #d35400;
