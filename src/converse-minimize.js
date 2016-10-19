@@ -93,7 +93,6 @@
                 },
 
                 minimize: function () {
-                    $('.controlbox#mySidenav').find(".open-chat[data-contact-jid='" + this.get('jid') + "'] img.avatar").removeClass('selected-person');
                     this.save({
                         'minimized': true,
                         'time_minimized': moment().format()
