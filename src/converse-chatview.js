@@ -235,7 +235,8 @@
                     var insert = prepend ? this.$content.prepend: this.$content.append;
                     insert.call(this.$content, converse.templates.new_day({
                         isodate: day_date.format(),
-                        datestring: day_date.format("dddd MMM Do YYYY")
+                        datestring: day_date.format("ddd, MMM DD, YYYY")
+                        //  datestring: day_date.format("dddd MMM Do YYYY")
                     }));
                 },
                 insertDayIndicatorAfter: function (date, item) {
@@ -246,7 +247,8 @@
                     var day_date = moment(date).startOf('day');
                     $(item).after(converse.templates.new_day({
                         isodate: day_date.format(),
-                        datestring: day_date.format("dddd MMM Do YYYY")
+                        datestring: day_date.format("ddd, MMM DD, YYYY")
+                        //  datestring: day_date.format("dddd MMM Do YYYY")
                     }));
                 },
                 insertMessage: function (attrs, prepend) {
