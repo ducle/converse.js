@@ -677,7 +677,7 @@
                     var jid = this.model.get('jid');
                     converse.chatboxviews.each(function (view) {
                       if (view.model.get('id') !== 'controlbox') {
-                        if($(view.el).is(':visible') && jid != $(view.el).find('.chat-body').data('jid')) {
+                        if (jid != $(view.el).find('.chat-body').data('jid')) {
                           view.close();
                         }
                       }
