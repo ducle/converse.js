@@ -286,12 +286,13 @@
                         current_msg_date = moment(attrs.time) || moment,
                         last_msg_date = this.$content.children('.chat-message:last').data('isodate');
                     var text = attrs.message
-                    if (text.indexOf('class="show_html contact_added') > 0 || text.indexOf('class="show_html house_changed') > 0) {
+                    if (text.indexOf('class="show_html contact_added') > 0 || text.indexOf('class="show_html house_changed') > 0
+                      || (text.indexOf('class="show_html payment_url') > 0 && attrs.sender == 'them') ) {
                       if (!first_msg_date || current_msg_date.isAfter(last_msg_date)) {
                         $(this.el).find('form.sendXMPPMessage input[name=house_token]').val(attrs.house_token);
                         $(this.el).find('form.sendXMPPMessage input[name=house_title]').val(attrs.house_title);
-                        return;
                       }
+                      return;
                     }
                     if (!first_msg_date) {
                         // This is the first received message, so we insert a
