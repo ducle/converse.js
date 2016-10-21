@@ -285,13 +285,14 @@
                         first_msg_date = $first_msg.data('isodate'),
                         current_msg_date = moment(attrs.time) || moment,
                         last_msg_date = this.$content.children('.chat-message:last').data('isodate');
+
+                    if (!first_msg_date || current_msg_date.isAfter(last_msg_date)) {
+                      $(this.el).find('form.sendXMPPMessage input[name=house_token]').val(attrs.house_token);
+                      $(this.el).find('form.sendXMPPMessage input[name=house_title]').val(attrs.house_title);
+                    }
                     var text = attrs.message
                     if (text.indexOf('class="show_html contact_added') > 0
                       || (text.indexOf('class="show_html payment_url') > 0 && attrs.sender == 'them') ) {
-                      if (!first_msg_date || current_msg_date.isAfter(last_msg_date)) {
-                        $(this.el).find('form.sendXMPPMessage input[name=house_token]').val(attrs.house_token);
-                        $(this.el).find('form.sendXMPPMessage input[name=house_title]').val(attrs.house_title);
-                      }
                       return;
                     }
                     if (!first_msg_date) {
@@ -911,7 +912,7 @@
                 },
                 editContract: function () {
                   var current_url = $(location).attr('href');
-                  if(current_url.indexOf('/contracts') >= 0 && $('form.contract_form').length > 0) {
+                  if(current_url.indexOf('/contracts') >= 0 && $('form.contract_form.landlord').length > 0) {
                     var jid = this.model.get('jid');
                     var new_contact = this.model.get('fullname');
                     if(jid != $('form.contract_form').attr('data-tenant-jid')) {
