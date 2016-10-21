@@ -112,10 +112,7 @@
                     this.model.on('sendMessage', this.sendMessage, this);
                     this.model.set('url', converse.zuker_base_url + this.model.get('user_id').replace('_', 's/'))
                     this.render().fetchMessages().insertIntoDOM().afterShown();
-                    _.delay(_.bind(function() {
-                        //  this.setHouse().renderHouses();
-                        this.renderHouses();
-                   }, this), 1000)
+                    //this.renderHouses();
 
                     // XXX: adding the event below to the events map above doesn't work.
                     // The code that gets executed because of that looks like this:
@@ -287,8 +284,11 @@
                         last_msg_date = this.$content.children('.chat-message:last').data('isodate');
 
                     if (!first_msg_date || current_msg_date.isAfter(last_msg_date)) {
-                      $(this.el).find('form.sendXMPPMessage input[name=house_token]').val(attrs.house_token);
-                      $(this.el).find('form.sendXMPPMessage input[name=house_title]').val(attrs.house_title);
+                      if (attrs.house_token != $(this.el).find('form.sendXMPPMessage input[name=house_token]').val()) {
+                        $(this.el).find('form.sendXMPPMessage input[name=house_token]').val(attrs.house_token);
+                        $(this.el).find('form.sendXMPPMessage input[name=house_title]').val(attrs.house_title);
+                        this.renderHouses()
+                      }
                     }
                     var text = attrs.message
                     if (text.indexOf('class="show_html contact_added') > 0
