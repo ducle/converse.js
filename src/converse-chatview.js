@@ -475,12 +475,14 @@
                     this.showMessage(_.clone(message.attributes));
                     if (message.get('sender') !== 'me') {
                         this.updateNewMessageIndicators(message);
+                        /*
                         if(message.get('message').indexOf('class="show_html house_changed') > 0) {
                           this.$el.find('.chat-title .house-title').text(message.get('house_title'))
                             .closest('a').attr('href', converse.zuker_base_url + "houses/" + message.get('house_token'));
                           this.$el.find('form.sendXMPPMessage input[name=house_token]').val(message.get('house_token'));
                           this.$el.find('form.sendXMPPMessage input[name=house_title]').val(message.get('house_title'));
                         }
+                        */
                     } else {
                         // We remove the "scrolled" flag so that the chat area
                         // gets scrolled down. We always want to scroll down
@@ -911,6 +913,16 @@
                   return this;
                 },
                 editContract: function () {
+                  var this2 = this
+                  $(this.el).find('.edit-contract-container a').attr('data-disabled', 'true');
+                  var house_token = $(this.el).find('form.sendXMPPMessage input[name=house_token]').val();
+                  $.get(converse.zuker_base_url + "chats/btn_edit_contract.js", { jid: this.model.get('jid'), current_jid: converse.bare_jid, house_token: house_token }, function() {
+                    this2.editContractAction()
+                  });
+                },
+                editContractAction: function () {
+                  if($(this.el).find('.edit-contract-container a').attr('data-disabled') == 'true')
+                    return false;
                   var current_url = $(location).attr('href');
                   if(current_url.indexOf('/contracts') >= 0 && $('form.contract_form.landlord').length > 0) {
                     var jid = this.model.get('jid');
@@ -922,7 +934,6 @@
                     }
                   }
                   this.onMessageSubmitted('<span class="show_html editing-contract-msg">The landlord is editing the contract.</span>');
-                  var house_token = $(this.el).find('form.sendXMPPMessage input[name=house_token]').val();
                   location.href = converse.zuker_base_url + "houses/" + house_token + "/contracts/" + this.model.get('user_id') + '/landlord';
                 },
                 changeHouse: function (ev) {
@@ -947,14 +958,16 @@
                     console.log('render houses ----')
                     var this0 = this;
                     var div1 = this.el;
-                    $(this.el).html('');
                     var chatbox1 = $(div1).closest('.chatbox');
                     var house_token = $(chatbox1).find('form.sendXMPPMessage input[name=house_token]').val();
                     var house_title = $(chatbox1).find('form.sendXMPPMessage input[name=house_title]').val();
                     $.get(converse.zuker_base_url + "houses/list.json" + "?jid=" + converse.bare_jid + "&house_token=" + house_token, function(data) {
+                      $(div1).html('')
                       $(data).each(function (idx, obj) {
                           $(div1).append(converse.templates.house(obj));
                       })
+                      house_token = $(chatbox1).find('form.sendXMPPMessage input[name=house_token]').val();
+                      house_title = $(chatbox1).find('form.sendXMPPMessage input[name=house_title]').val();
                       $(div1).find("option[value='" + house_token + "']").attr('selected', true);
                       if(data.length > 0) {
                           $(div1).closest('.landlord-container').removeClass('hide');
