@@ -921,8 +921,10 @@
                   });
                 },
                 editContractAction: function () {
-                  if($(this.el).find('.edit-contract-container a').attr('data-disabled') == 'true')
+                  if($(this.el).find('.edit-contract-container a').attr('data-disabled') == 'true') {
                     return false;
+                  }
+                  var house_token = $(this.el).find('form.sendXMPPMessage input[name=house_token]').val();
                   var current_url = $(location).attr('href');
                   if(current_url.indexOf('/contracts') >= 0 && $('form.contract_form.landlord').length > 0) {
                     var jid = this.model.get('jid');
@@ -945,6 +947,7 @@
                     $(this.el).find('form.sendXMPPMessage input[name=house_token]').val(house_token);
                     $(this.el).find('form.sendXMPPMessage input[name=house_title]').val(house_title);
                     this.onMessageSubmitted('<span class="show_html house_changed">Landlord has switched to ' + house_title + '</span>');
+                    $.get(converse.zuker_base_url + "contracts/change_house.js", { jid: this.model.get('jid'), current_jid: converse.bare_jid, house_token: house_token })
                 }
             });
 
