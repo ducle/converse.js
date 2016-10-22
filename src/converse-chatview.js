@@ -112,7 +112,7 @@
                     this.model.on('sendMessage', this.sendMessage, this);
                     this.model.set('url', converse.zuker_base_url + this.model.get('user_id').replace('_', 's/'))
                     this.render().fetchMessages().insertIntoDOM().afterShown();
-                    //this.renderHouses();
+                    this.renderHouses();
 
                     // XXX: adding the event below to the events map above doesn't work.
                     // The code that gets executed because of that looks like this:
@@ -287,7 +287,17 @@
                       if (attrs.house_token != $(this.el).find('form.sendXMPPMessage input[name=house_token]').val()) {
                         $(this.el).find('form.sendXMPPMessage input[name=house_token]').val(attrs.house_token);
                         $(this.el).find('form.sendXMPPMessage input[name=house_title]').val(attrs.house_title);
-                        this.renderHouses()
+                        $(this.el).find('.chat-title .house-title').text(attrs.house_title)
+                          .closest('a').attr('href', converse.zuker_base_url + "houses/" + attrs.house_token);
+
+                        if($(this.el).find('select.houses option').length > 0) {
+                          if($(this.el).find('.landlord-container select.houses option[value="' + attrs.house_token + '"]').length > 0 || $(this.el).find('.landlord-container div.houses[data-token="' + attrs.house_token + '"]').length > 0) {
+                            $(this.el).find("option[value='" + attrs.house_token + "']").attr('selected', true);
+                            $(this.el).find('.landlord-container').removeClass('hide');
+                          }else{
+                            $(this.el).find('.landlord-container').addClass('hide');
+                          }
+                        }
                       }
                     }
                     var text = attrs.message
@@ -962,35 +972,24 @@
                     var this0 = this;
                     var div1 = this.el;
                     var chatbox1 = $(div1).closest('.chatbox');
-                    var house_token = $(chatbox1).find('form.sendXMPPMessage input[name=house_token]').val();
-                    var house_title = $(chatbox1).find('form.sendXMPPMessage input[name=house_title]').val();
-                    $.get(converse.zuker_base_url + "houses/list.json" + "?jid=" + converse.bare_jid + "&house_token=" + house_token, function(data) {
+                    $.get(converse.zuker_base_url + "houses/list.json" + "?jid=" + converse.bare_jid, function(data) {
                       $(div1).html('')
                       $(data).each(function (idx, obj) {
                           $(div1).append(converse.templates.house(obj));
                       })
-                      house_token = $(chatbox1).find('form.sendXMPPMessage input[name=house_token]').val();
-                      house_title = $(chatbox1).find('form.sendXMPPMessage input[name=house_title]').val();
+                      var house_token = $(chatbox1).find('form.sendXMPPMessage input[name=house_token]').val();
+                      var house_title = $(chatbox1).find('form.sendXMPPMessage input[name=house_title]').val();
                       $(div1).find("option[value='" + house_token + "']").attr('selected', true);
-                      if(data.length > 0) {
-                          $(div1).closest('.landlord-container').removeClass('hide');
-                          var $content2 = $('#conversejs .chatbox .chat-content')
-                          $content2.css('height', 'calc(100% - 130px)')
-                          $content2.scrollTop($content2[0].scrollHeight);
-                          if(house_token == '') {
-                            house_token = $(div1).find('option:first').val()
-                            house_title = $(div1).find('option:first').attr('data-title')
-                            $(chatbox1).find('form.sendXMPPMessage input[name=house_token]').val(house_token);
-                            $(chatbox1).find('form.sendXMPPMessage input[name=house_title]').val(house_title)
-                          }
-                          if(data.length == 1) {
-                            var house_title2 = $(div1).find('option:first').attr('data-title')
-                            $(div1).replaceWith("<div class='houses'>" + house_title2 + "</div>")
-                          }
+                      if(data.length > 0 && $(div1).closest('.landlord-container').find('select.houses option[value="' + house_token + '"]').length > 0) {
+                        $(div1).closest('.landlord-container').removeClass('hide');
+                        var $content2 = $('#conversejs .chatbox .chat-content')
+                        $content2.css('height', 'calc(100% - 130px)')
+                        $content2.scrollTop($content2[0].scrollHeight);
                       }
-                      $(chatbox1).find('.chat-title .house-title').text(house_title)
-                        .closest('a').attr('href', converse.zuker_base_url + "houses/" + house_token);
-
+                      if(data.length == 1) {
+                        var house_title2 = $(div1).find('option:first').attr('data-title')
+                        $(div1).replaceWith("<div class='houses'>" + house_title2 + "</div>")
+                      }
                       converse.emit('housesRendered', this0);
                     });
 
