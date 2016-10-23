@@ -575,7 +575,7 @@
                     var house_title = $message.find('house_title').text();
                     if (body != null && body != '' && from_jid != null) {
                       $.post(converse.zuker_base_url + "archive_messages.js", {
-                        msgid: msgid, from_jid: from_jid, to_jid: to_jid, body: body, house_token: house_token, house_title: house_title, stanza: $message.get(0).outerHTML, msg_type: 'house_changed'
+                        msgid: msgid, from_jid: from_jid, to_jid: to_jid, body: body, house_token: house_token, house_title: house_title, stanza: $message.get(0).outerHTML, msg_type: ''
                       });
                       if (this.model.get('chat_status') == 'offline' && body.indexOf('class="show_html contact_added') < 0) {
                           $.get(converse.zuker_base_url + "chats/notify.js", { jid: this.model.get('jid'), current_jid: converse.bare_jid, house_token: house_token });
@@ -956,7 +956,7 @@
                       .closest('a').attr('href', converse.zuker_base_url + "houses/" + house_token);
                     $(this.el).find('form.sendXMPPMessage input[name=house_token]').val(house_token);
                     $(this.el).find('form.sendXMPPMessage input[name=house_title]').val(house_title);
-                    this.onMessageSubmitted('<span class="show_html house_changed">Landlord has switched to ' + house_title + '</span>');
+                    this.onMessageSubmitted('<span class="show_html house_changed">The landlord has changed the house name to ' + house_title + '</span>');
                     $.get(converse.zuker_base_url + "contracts/change_house.js", { jid: this.model.get('jid'), current_jid: converse.bare_jid, house_token: house_token })
                 }
             });
