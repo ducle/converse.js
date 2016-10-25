@@ -934,19 +934,34 @@
                   if($(this.el).find('.edit-contract-container a').attr('data-disabled') == 'true') {
                     return false;
                   }
+                  var this2 = this
                   var house_token = $(this.el).find('form.sendXMPPMessage input[name=house_token]').val();
                   var current_url = $(location).attr('href');
                   if(current_url.indexOf('/contracts') >= 0 && $('form.contract_form.landlord').length > 0) {
                     var jid = this.model.get('jid');
-                    var new_contact = this.model.get('fullname');
+                    var tenantOfContract = $('form.contract_form.landlord').attr('data-tenant-name')
                     if(jid != $('form.contract_form').attr('data-tenant-jid')) {
-                      if(!confirm("Do you want to continue edit contract for " + new_contact + "?")) {
-                        return false;
-                      }
+                      bootbox.confirm({
+                        message: 'Whether you want to continue with ' + tenantOfContract,
+                        buttons: {
+                          confirm: {
+                              label: 'Yes',
+                              className: 'btn-default'
+                          },
+                          cancel: {
+                              label: 'Discard',
+                              className: 'btn-default'
+                          }
+                        },
+                        callback: function (result) {
+                          if(!result){
+                            this2.onMessageSubmitted('<span class="show_html editing-contract-msg">The landlord is editing the contract.</span>');
+                            location.href = converse.zuker_base_url + "houses/" + house_token + "/contracts/" + this2.model.get('user_id') + '/landlord';
+                          }
+                        }
+                      });
                     }
                   }
-                  this.onMessageSubmitted('<span class="show_html editing-contract-msg">The landlord is editing the contract.</span>');
-                  location.href = converse.zuker_base_url + "houses/" + house_token + "/contracts/" + this.model.get('user_id') + '/landlord';
                 },
                 changeHouse: function (ev) {
                     if (ev && ev.preventDefault) { ev.preventDefault(); }
