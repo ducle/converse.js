@@ -924,23 +924,10 @@
                 },
                 editContract: function () {
                   var this2 = this
-                  $(this.el).find('.edit-contract-container a').attr('data-disabled', 'true');
-                  var house_token = $(this.el).find('form.sendXMPPMessage input[name=house_token]').val();
-                  $.get(converse.zuker_base_url + "chats/btn_edit_contract.js", { jid: this.model.get('jid'), current_jid: converse.bare_jid, house_token: house_token }, function() {
-                    this2.editContractAction()
-                  });
-                },
-                editContractAction: function () {
-                  if($(this.el).find('.edit-contract-container a').attr('data-disabled') == 'true') {
-                    return false;
-                  }
-                  var this2 = this
-                  var house_token = $(this.el).find('form.sendXMPPMessage input[name=house_token]').val();
                   var current_url = $(location).attr('href');
-                  if(current_url.indexOf('/contracts') >= 0 && $('form.contract_form.landlord').length > 0) {
-                    var jid = this.model.get('jid');
-                    var tenantOfContract = $('form.contract_form.landlord').attr('data-tenant-name')
-                    if(jid != $('form.contract_form').attr('data-tenant-jid')) {
+                  var jid = this.model.get('jid');
+                  var tenantOfContract = $('form.contract_form.landlord').attr('data-tenant-name')
+                  if(current_url.indexOf('/contracts') >= 0 && $('form.contract_form.landlord').length > 0 && jid != $('form.contract_form').attr('data-tenant-jid')) {
                       bootbox.confirm({
                         message: 'Whether you want to continue with ' + tenantOfContract,
                         buttons: {
@@ -955,13 +942,18 @@
                         },
                         callback: function (result) {
                           if(!result){
-                            this2.onMessageSubmitted('<span class="show_html editing-contract-msg">The landlord is editing the contract.</span>');
-                            location.href = converse.zuker_base_url + "houses/" + house_token + "/contracts/" + this2.model.get('user_id') + '/landlord';
+                            this2.editContractAction();
                           }
                         }
                       });
-                    }
+                  } else {
+                    this.editContractAction();
                   }
+                },
+                editContractAction: function () {
+                  var house_token = $(this.el).find('form.sendXMPPMessage input[name=house_token]').val();
+                  this.onMessageSubmitted('<span class="show_html editing-contract-msg">The landlord is editing the contract.</span>');
+                  location.href = converse.zuker_base_url + "houses/" + house_token + "/contracts/" + this.model.get('user_id') + '/landlord';
                 },
                 changeHouse: function (ev) {
                     if (ev && ev.preventDefault) { ev.preventDefault(); }
