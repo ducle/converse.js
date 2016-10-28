@@ -282,9 +282,10 @@
                         first_msg_date = $first_msg.data('isodate'),
                         current_msg_date = moment(attrs.time) || moment,
                         last_msg_date = this.$content.children('.chat-message:last').data('isodate');
-
-                    if (!first_msg_date || current_msg_date.isAfter(last_msg_date)) {
-                      if (attrs.house_token != $(this.el).find('form.sendXMPPMessage input[name=house_token]').val()) {
+                    var current_house_token = $(this.el).find('form.sendXMPPMessage input[name=house_token]').val()
+                    if (!first_msg_date || current_msg_date.isAfter(last_msg_date) || current_house_token == '') {
+                      if (attrs.house_token != $(this.el).find('form.sendXMPPMessage input[name=house_token]').val() && attrs.house_token != null && attrs.house_token != '') {
+                        $(this.el).find('form.sendXMPPMessage .chat-textarea').removeAttr('readonly');
                         $(this.el).find('form.sendXMPPMessage input[name=house_token]').val(attrs.house_token);
                         $(this.el).find('form.sendXMPPMessage input[name=house_title]').val(attrs.house_title);
                         $(this.el).find('.chat-title .house-title').text(attrs.house_title)
