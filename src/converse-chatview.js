@@ -928,7 +928,8 @@
                   var current_url = $(location).attr('href');
                   var jid = this.model.get('jid');
                   var tenantOfContract = $('form.contract_form.landlord').attr('data-tenant-name')
-                  if(current_url.indexOf('/contracts') >= 0 && $('form.contract_form.landlord').length > 0 && jid != $('form.contract_form').attr('data-tenant-jid')) {
+                  var tenantJid = $('form.contract_form').attr('data-tenant-jid');
+                  if(current_url.indexOf('/contracts') >= 0 && $('form.contract_form.landlord').length > 0 && jid != tenantJid) {
                       bootbox.confirm({
                         message: 'Whether you want to continue with ' + tenantOfContract,
                         buttons: {
@@ -943,6 +944,25 @@
                         },
                         callback: function (result) {
                           if(!result){
+                            this2.editContractAction();
+                          }
+                        }
+                      });
+                  } else if(current_url.indexOf('/contracts') >= 0 && $('form.contract_form.landlord').length > 0 && jid == tenantJid) {
+                      bootbox.confirm({
+                        message: 'Contract has unsaved changes, do you wish to proceed [YES/ NO]',
+                        buttons: {
+                          confirm: {
+                              label: 'Yes',
+                              className: 'btn-default'
+                          },
+                          cancel: {
+                              label: 'No',
+                              className: 'btn-default'
+                          }
+                        },
+                        callback: function (result) {
+                          if(result) {
                             this2.editContractAction();
                           }
                         }
@@ -965,7 +985,6 @@
                     $(this.el).find('form.sendXMPPMessage input[name=house_token]').val(house_token);
                     $(this.el).find('form.sendXMPPMessage input[name=house_title]').val(house_title);
                     this.onMessageSubmitted('<span class="show_html house_changed">The landlord has changed the house name to ' + house_title + '</span>');
-                    $.get(converse.zuker_base_url + "contracts/change_house.js", { jid: this.model.get('jid'), current_jid: converse.bare_jid, house_token: house_token })
                 }
             });
 
