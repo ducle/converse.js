@@ -170,6 +170,7 @@
                     this.model.save({'scroll': this.$content.scrollTop()});
                     this.setChatState(converse.INACTIVE).model.minimize();
                     this.$el.hide('fast', this.onMinimized.bind(this));
+                    $("#conversejs #minimized-chats .restore-chat[data-jid='" + this.model.get('jid') + "']").closest('.chat-head-chatbox').removeClass('hide');
                 },
             },
 
@@ -332,7 +333,7 @@
                         this.$el.addClass('chat-head-chatroom');
                     } else {
                         data.title = this.model.get('fullname');
-                        this.$el.addClass('chat-head-chatbox');
+                        this.$el.addClass('chat-head-chatbox hide');
                     }
                     return this.$el.html(converse.templates.trimmed_chat(data));
                 },
