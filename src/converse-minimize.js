@@ -333,7 +333,11 @@
                         this.$el.addClass('chat-head-chatroom');
                     } else {
                         data.title = this.model.get('fullname');
-                        this.$el.addClass('chat-head-chatbox hide');
+                        if(this.model.get('jid') == Cookies.get('minimized-chat-jid')) {
+                          this.$el.addClass('chat-head-chatbox');
+                        } else {
+                          this.$el.addClass('chat-head-chatbox hide');
+                        }
                     }
                     return this.$el.html(converse.templates.trimmed_chat(data));
                 },
