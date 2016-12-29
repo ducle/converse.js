@@ -303,7 +303,8 @@
                     }
                     var text = attrs.message
                     if (text.indexOf('class="show_html contact_added') > 0
-                      || (text.indexOf('class="show_html payment_url') > 0 && attrs.sender == 'them') ) {
+                      || (text.indexOf('class="show_html payment_url') > 0 && attrs.sender == 'me')
+                      || (text.indexOf('class="show_html confirming_url') > 0 && attrs.sender == 'me')) {
                       return;
                     }
                     if (!first_msg_date) {
