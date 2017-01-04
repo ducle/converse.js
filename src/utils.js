@@ -373,6 +373,27 @@
                     );
                 }
             }
+        },
+
+        translateMessage: function (text, func) {
+          var keys = [ 'Landlord is preparing the contract',
+                       'The landlord has updated the contract!',
+                       'Click here to view',
+                       'You have agreed to the contract.',
+                       'Please wait for the landlord to confirm your ID',
+                       'The tenant has agreed to contract.',
+                       'Please click to check tenant id and confirm',
+                       'The landlord has confirmed your ID',
+                       'Click to make the payment to finalize the contract.',
+                       'If you are paying offline, please inform the landlord to mark you as paid offline to finalize the contract',
+                       'You have confirmed the tenant ID. Waiting for payment from tenant. If the tenant is making the payment offline, ensure to mark tenant as Paid offline to finalize the contract'
+                     ]
+
+          _.each(keys, function(key) {
+            text = text.replace(key, func(key));
+          })
+
+          return text;
         }
     };
 

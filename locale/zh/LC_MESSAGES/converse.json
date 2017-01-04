@@ -729,6 +729,54 @@
          "Sorry, there was an error while trying to remove ": [
             null,
             ""
+         ],
+         "Are you sure you want to decline this contact request?": [
+            null,
+            ""
+         ],
+         "Landlord is preparing the contract": [
+            null,
+            "房東正在準備契約"
+         ],
+         "The landlord has updated the contract!": [
+           null,
+           "房東已經更新契約,"
+         ],
+         "Click here to view": [
+            null,
+            "點此觀看"
+         ],
+         "You have agreed to the contract.": [
+            null,
+            "你已經同意這份契約，"
+         ],
+         "Please wait for the landlord to confirm your ID": [
+            null,
+            "請等待房東確認你的資料。"
+         ],
+         "The tenant has agreed to contract.": [
+            null,
+            "租客已同意契約，"
+         ],
+         "Please click to check tenant id and confirm": [
+            null,
+            "請點此確認租客資料"
+         ],
+         "The landlord has confirmed your ID": [
+            null,
+            "房東已確認房客的資料"
+         ],
+         "Click to make the payment to finalize the contract.": [
+            null,
+            "點此支付押金以完成契約。"
+         ],
+         "If you are paying offline, please inform the landlord to mark you as paid offline to finalize the contract": [
+            null,
+            "若欲由其他方式支付，請告知房東調整以完成契約"
+         ],
+         "You have confirmed the tenant ID. Waiting for payment from tenant. If the tenant is making the payment offline, ensure to mark tenant as Paid offline to finalize the contract": [
+            null,
+            "你已經確認租客的資料，等待租客支付押金以完成契約。若租客欲由其他方式收到款項，請至管理頁面調整"
          ]
       }
    }

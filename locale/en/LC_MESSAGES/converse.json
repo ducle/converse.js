@@ -894,6 +894,50 @@
          "Are you sure you want to decline this contact request?": [
             null,
             ""
+         ],
+         "Landlord is preparing the contract": [
+            null,
+            ""
+         ],
+         "The landlord has updated the contract!": [
+           null,
+           ""
+         ],
+         "Click here to view": [
+            null,
+            ""
+         ],
+         "You have agreed to the contract.": [
+            null,
+            ""
+         ],
+         "Please wait for the landlord to confirm your ID": [
+            null,
+            ""
+         ],
+         "The tenant has agreed to contract.": [
+            null,
+            ""
+         ],
+         "Please click to check tenant id and confirm": [
+            null,
+            ""
+         ],
+         "The landlord has confirmed your ID": [
+            null,
+            ""
+         ],
+         "Click to make the payment to finalize the contract.": [
+            null,
+            ""
+         ],
+         "If you are paying offline, please inform the landlord to mark you as paid offline to finalize the contract": [
+            null,
+            ""
+         ],
+         "You have confirmed the tenant ID. Waiting for payment from tenant. If the tenant is making the payment offline, ensure to mark tenant as Paid offline to finalize the contract": [
+            null,
+            ""
          ]
       }
    }

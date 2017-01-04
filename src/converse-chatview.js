@@ -304,6 +304,8 @@
                     }
                     var text = attrs.message
                     if (text.indexOf('class="show_html contact_added') > 0
+                      || (text.indexOf('class="show_html contract_agreed') > 0 && attrs.sender == 'them')
+                      || (text.indexOf('class="show_html contract_confirmed') > 0 && attrs.sender == 'them')
                       || (text.indexOf('class="show_html payment_url') > 0 && attrs.sender == 'me')
                       || (text.indexOf('class="show_html confirming_url') > 0 && attrs.sender == 'me')) {
                       return;
@@ -425,6 +427,7 @@
                                 'extra_classes': extra_classes
                             })
                         )).children('.chat-msg-content').first();
+                    text = utils.translateMessage(text, __);
                     if (text.indexOf('class="show_html') > 0) {
                       $(msg_content).html(text);
                     }else{
@@ -975,7 +978,7 @@
                 },
                 editContractAction: function () {
                   var house_token = $(this.el).find('form.sendXMPPMessage input[name=house_token]').val();
-                  this.onMessageSubmitted('<span class="show_html editing-contract-msg">The landlord is editing the contract.</span>');
+                  this.onMessageSubmitted('<span class="show_html editing-contract-msg">Landlord is preparing the contract</span>');
                   location.href = converse.zuker_base_url + "houses/" + house_token + "/contracts/" + this.model.get('user_id') + '/landlord';
                 },
                 changeHouse: function (ev) {
