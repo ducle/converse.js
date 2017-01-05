@@ -777,6 +777,14 @@
          "You have confirmed the tenant ID. Waiting for payment from tenant. If the tenant is making the payment offline, ensure to mark tenant as Paid offline to finalize the contract": [
             null,
             "你已經確認租客的資料，等待租客支付押金以完成契約。若租客欲由其他方式收到款項，請至管理頁面調整"
+         ],
+         "The landlord has canceled the ID confirmation, please check": [
+            null,
+            "房東取消了確認，請檢查"
+         ],
+         "You have canceled the ID confirmation": [
+            null,
+            "你已取消了確認"
          ]
       }
    }

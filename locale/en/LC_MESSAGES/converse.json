@@ -938,6 +938,14 @@
          "You have confirmed the tenant ID. Waiting for payment from tenant. If the tenant is making the payment offline, ensure to mark tenant as Paid offline to finalize the contract": [
             null,
             ""
+         ],
+         "The landlord has canceled the ID confirmation, please check": [
+            null,
+            ""
+         ],
+         "You have canceled the ID confirmation": [
+            null,
+            ""
          ]
       }
    }

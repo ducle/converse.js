@@ -386,7 +386,9 @@
                        'The landlord has confirmed your ID',
                        'Click to make the payment to finalize the contract.',
                        'If you are paying offline, please inform the landlord to mark you as paid offline to finalize the contract',
-                       'You have confirmed the tenant ID. Waiting for payment from tenant. If the tenant is making the payment offline, ensure to mark tenant as Paid offline to finalize the contract'
+                       'You have confirmed the tenant ID. Waiting for payment from tenant. If the tenant is making the payment offline, ensure to mark tenant as Paid offline to finalize the contract',
+                       'The landlord has canceled the ID confirmation, please check',
+                       'You have canceled the ID confirmation'
                      ]
 
           _.each(keys, function(key) {
