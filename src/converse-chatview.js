@@ -931,6 +931,10 @@
                   return this;
                 },
                 editContract: function () {
+                  if($('body').attr('data-mobile') == 'true') {
+                    bootbox.alert(__('For better user experience, please use a computer to go in a contract.'))
+                    return true;
+                  }
                   var this2 = this
                   var current_url = $(location).attr('href');
                   var jid = this.model.get('jid');

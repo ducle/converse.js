@@ -946,6 +946,10 @@
          "You have canceled the ID confirmation": [
             null,
             ""
+         ],
+         "For better user experience, please use a computer to go in a contract.": [
+           null,
+           ""
          ]
       }
    }

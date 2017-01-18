@@ -785,6 +785,10 @@
          "You have canceled the ID confirmation": [
             null,
             "你已取消了確認"
+         ],
+         "For better user experience, please use a computer to go in a contract.": [
+           null,
+           "為了你的體驗，請使用電腦來簽訂契約。"
          ]
       }
    }
