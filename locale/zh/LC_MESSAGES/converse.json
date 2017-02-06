@@ -789,6 +789,14 @@
          "For better user experience, please use a computer to go in a contract.": [
            null,
            "為了你的體驗，請使用電腦來簽訂契約。"
+         ],
+         "The landlord has cancelled the contract": [
+           null,
+           "房東已取消契約"
+         ],
+         "The landlord has changed the house name to": [
+           null,
+           "房東已更改房源名稱成"
          ]
       }
    }

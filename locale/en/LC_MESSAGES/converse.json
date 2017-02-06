@@ -950,6 +950,14 @@
          "For better user experience, please use a computer to go in a contract.": [
            null,
            ""
+         ],
+         "The landlord has cancelled the contract": [
+           null,
+           ""
+         ],
+         "The landlord has changed the house name to": [
+           null,
+           ""
          ]
       }
    }
