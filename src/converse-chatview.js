@@ -432,6 +432,7 @@
                     text = utils.translateMessage(text, __);
                     if (text.indexOf('class="show_html') > 0) {
                       $(msg_content).html(text);
+                      $(msg_content).addClass('chat-msg-content-custom');
                     }else{
                       $(msg_content).text(text).addHyperlinks();
                     }
