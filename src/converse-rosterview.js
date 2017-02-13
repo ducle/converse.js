@@ -279,8 +279,7 @@
                 },
 
                 render: function () {
-                    //  this.$roster = $('<dl class="roster-contacts" style="display: none;"></dl>');
-                    this.$roster = $('<ul class="roster-contacts" style="display: none;"></ul>');
+                    this.$roster = $('<dl class="roster-contacts" style="display: none;"></dl>');
                     this.$el.html(this.filter_view.render());
                     if (!converse.allow_contact_requests) {
                         // XXX: if we ever support live editing of config then
@@ -370,8 +369,7 @@
                 reset: function () {
                     converse.roster.reset();
                     this.removeAll();
-                    //  this.$roster = $('<dl class="roster-contacts" style="display: none;"></dl>');
-                    this.$roster = $('<ul class="roster-contacts" style="display: none;"></ul>');
+                    this.$roster = $('<dl class="roster-contacts" style="display: none;"></dl>');
                     this.render().update();
                     return this;
                 },
@@ -544,7 +542,7 @@
 
 
             converse.RosterContactView = Backbone.View.extend({
-                tagName: 'li',
+                tagName: 'dd',
 
                 events: {
                     "click .accept-xmpp-request": "acceptRequest",
