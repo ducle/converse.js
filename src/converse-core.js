@@ -960,6 +960,7 @@
                 this.addContact(jid, name, groups, attributes).done(function (contact) {
                     if (contact instanceof converse.RosterContact) {
                         contact.subscribe(message);
+                        converse.emit('addedContactDone', contact);
                     }
                 });
             },
