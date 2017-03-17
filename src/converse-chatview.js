@@ -292,7 +292,7 @@
                         $(this.el).find('.chat-title .house-title').text(attrs.house_title)
                           .closest('a').attr('href', converse.zuker_base_url + "houses/" + attrs.house_token);
 
-                        if($(this.el).find('select.houses option').length > 0) {
+                        if($(this.el).find('.houses').length > 0) {
                           if($(this.el).find('.landlord-container select.houses option[value="' + attrs.house_token + '"]').length > 0 || $(this.el).find('.landlord-container div.houses[data-token="' + attrs.house_token + '"]').length > 0) {
                             $(this.el).find("option[value='" + attrs.house_token + "']").attr('selected', true);
                             $(this.el).find('.landlord-container').removeClass('hide');
@@ -1026,8 +1026,10 @@
                         $content2.scrollTop($content2[0].scrollHeight);
                       }
                       if(data.length == 1) {
-                        var house_title2 = $(div1).find('option:first').attr('data-title')
-                        $(div1).replaceWith("<div class='houses'>" + house_title2 + "</div>")
+                        var $first_option = $(div1).find('option:first')
+                        var house_token2 = $first_option.val()
+                        var house_title2 = $first_option.attr('data-title')
+                        $(div1).replaceWith("<div class='houses' data-token='" + house_token2 + "'>" + house_title2 + "</div>")
                       }
                       converse.emit('housesRendered', this0);
                     });
